@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Produto;
+import model.UnidadeEmpresa;
 
 /**
  *
@@ -93,38 +94,48 @@ public class ProdutoController extends HttpServlet {
         String descricao = request.getParameter("descricao");
 
         Produto produto = new Produto(valor, nome, descricao);
-        produtoDAO.inserirProduto(produto);
+        produtoDAO.inserirNovoProduto(produto);
         response.sendRedirect("lista_produtos");
     }
-    
+
     private void deletarProduto(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
- 
+
         produtoDAO.excluirProduto(id);
         response.sendRedirect("lista_produtos");
- 
+
     }
-    
+
     private void mostrarFormularioEditarProduto(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Produto produto = produtoDAO.buscaProduto(id);
+        Produto produto = produtoDAO.buscarProduto(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("editar_produto.jsp");
         request.setAttribute("produto", produto);
         dispatcher.forward(request, response);
- 
+
     }
-    
+
     private void atualizarProduto(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         double valor = Double.parseDouble(request.getParameter("valor"));
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
- 
+
+        // Futuramente pegar dados da unidade empresa do funcionário da sessão
+        int idUnidadeEmpresa = Integer.parseInt(request.getParameter("id_unidade_empresa"));
+        String descricaoUnidadeEmpresa = request.getParameter("descricao_unidade_empresa");
+        int tipoUnidadeEmpresa = Integer.parseInt(request.getParameter("tipo_unidade_empresa"));
+
         Produto produto = new Produto(valor, nome, descricao);
-        produtoDAO.atualizarProduto(produto);
+        UnidadeEmpresa unidadeEmpresa = new UnidadeEmpresa(
+                idUnidadeEmpresa,
+                descricaoUnidadeEmpresa,
+                tipoUnidadeEmpresa);
+
+        produtoDAO.atualizarProduto(produto, unidadeEmpresa);
         response.sendRedirect("lista_produtos");
     }
 

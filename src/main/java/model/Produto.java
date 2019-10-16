@@ -6,6 +6,8 @@
 package model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.util.Date;
 public class Produto {
 
     protected int id;
-    protected int quantidadeEstoque;
+    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<UnidadeEmpresa, Integer>();
     protected double valor;
     protected String nome;
     protected String descricao;
@@ -26,9 +28,9 @@ public class Produto {
         this.id = id;
     }
 
-    public Produto(int id, int quantidadeEstoque, double valor, String nome, String descricao) {
+    public Produto(int id, UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque, double valor, String nome, String descricao) {
         this.id = id;
-        this.quantidadeEstoque = quantidadeEstoque;
+        this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
@@ -56,12 +58,13 @@ public class Produto {
         this.id = id;
     }
 
-    public int getQuantidadeEstoque() {
-        return quantidadeEstoque;
+    // Para implementar - Retornar estoque de determinada unidade
+    public int getQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa) {
+        return quantidadeEstoque.get(this);
     }
 
-    public void setQuantidadeEstoque(int quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+    public void setQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque) {
+        this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
     }
 
     public double getValor() {
