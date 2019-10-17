@@ -6,6 +6,8 @@
 package model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -13,22 +15,22 @@ import java.util.Date;
  */
 public class Produto {
 
-    private int id;
-    private int quantidadeEstoque;
-    private double valor;
-    private String nome;
-    private String descricao;
-    private CategoriaProduto categoriaProduto;
-    private Date dataCadastro;
+    protected int id;
+    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<UnidadeEmpresa, Integer>();
+    protected double valor;
+    protected String nome;
+    protected String descricao;
+    protected CategoriaProduto categoriaProduto;
+    protected Date dataCadastro;
 
     // Construtor utilizado no fluxo de exclusão
     public Produto(int id) {
         this.id = id;
     }
 
-    public Produto(int id, int quantidadeEstoque, double valor, String nome, String descricao) {
+    public Produto(int id, UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque, double valor, String nome, String descricao) {
         this.id = id;
-        this.quantidadeEstoque = quantidadeEstoque;
+        this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
@@ -42,10 +44,11 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    public Produto(double valor, String nome, String descricao) {
+    public Produto(double valor, String nome, String descricao, CategoriaProduto categoriaProduto) {
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
+        this.categoriaProduto = categoriaProduto;
     }
 
     public int getId() {
@@ -56,12 +59,13 @@ public class Produto {
         this.id = id;
     }
 
-    public int getQuantidadeEstoque() {
-        return quantidadeEstoque;
+    // Para implementar - Retornar estoque de determinada unidade
+    public int getQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa) {
+        return quantidadeEstoque.get(this);
     }
 
-    public void setQuantidadeEstoque(int quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+    public void setQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque) {
+        this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
     }
 
     public double getValor() {
