@@ -74,10 +74,10 @@ public class ProdutoDAO {
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
 
             instrucao = conexao.prepareStatement(insereQuantidadeEstoqueSQL);
-            
+
             instrucao.setInt(1, produto.getId());
             instrucao.setInt(2, unidadeEmpresa.getId());
-            instrucao.setInt(2, produto.getQuantidadeEstoque(unidadeEmpresa));
+            instrucao.setInt(3, produto.getQuantidadeEstoque(unidadeEmpresa));
 
             instrucao.execute();
             instrucao.close();
@@ -155,7 +155,7 @@ public class ProdutoDAO {
         }
     }
 
-    public boolean atualizarProduto(Produto produto, UnidadeEmpresa unidadeEmpresa) {
+    public boolean atualizarProduto(Produto produto) {
 
         boolean retorno = false;
 
@@ -166,12 +166,6 @@ public class ProdutoDAO {
                 + "valor = ?, "
                 + "id_categoria_produto = ? "
                 + "WHERE id = ?";
-
-        String atualizaQuantidadeEstoqueSQL
-                = "UPDATE quantidade_estoque SET "
-                + "quantidade_estoque = ? "
-                + "WHERE id_produto = ? "
-                + "AND id_unidade_empresa = ?";
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(atualizaProdutoSQL);
@@ -185,6 +179,29 @@ public class ProdutoDAO {
             int linhasAfetadasProduto = instrucao.executeUpdate();
             instrucao.close();
 
+            retorno = linhasAfetadasProduto > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Produto!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+
+    public boolean atualizarQuantidadeEstoque(Produto produto, UnidadeEmpresa unidadeEmpresa) {
+
+        boolean retorno = false;
+
+        String atualizaQuantidadeEstoqueSQL
+                = "UPDATE quantidade_estoque SET "
+                + "quantidade_estoque = ? "
+                + "WHERE id_produto = ? "
+                + "AND id_unidade_empresa = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(atualizaQuantidadeEstoqueSQL);
 
             instrucao.setInt(1, produto.getQuantidadeEstoque(unidadeEmpresa));
@@ -194,16 +211,15 @@ public class ProdutoDAO {
             int linhasAfetadasQuantidadeEstoque = instrucao.executeUpdate();
             instrucao.close();
 
-            retorno = linhasAfetadasProduto > 0 || linhasAfetadasQuantidadeEstoque > 0;
+            retorno = linhasAfetadasQuantidadeEstoque > 0;
 
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Atualização!");
+            System.out.println("Erro na operação de Atualização de Estoque!");
             throw new RuntimeException(e);
 
         } finally {
             return retorno;
         }
-
     }
 
     public boolean excluirProduto(int id) {
@@ -262,6 +278,7 @@ public class ProdutoDAO {
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setInt(1, id);
             ResultSet resultado = instrucao.executeQuery();
 
             Produto produto = new Produto(
@@ -274,7 +291,7 @@ public class ProdutoDAO {
 
             CategoriaProduto categoria = new CategoriaProduto(
                     resultado.getInt("categoria_produto.id_categoria_produto"),
-                    resultado.getString("ccategoria_produto.descricao")
+                    resultado.getString("categoria_produto.descricao")
             );
 
             unidadeEmpresaDAO = new UnidadeEmpresaDAO();

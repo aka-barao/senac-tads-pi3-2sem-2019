@@ -44,10 +44,11 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    public Produto(double valor, String nome, String descricao) {
+    public Produto(double valor, String nome, String descricao, CategoriaProduto categoriaProduto) {
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
+        this.categoriaProduto = categoriaProduto;
     }
 
     public int getId() {

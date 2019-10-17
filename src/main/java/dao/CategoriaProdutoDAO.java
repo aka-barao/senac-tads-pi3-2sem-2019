@@ -7,8 +7,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.CategoriaProduto;
 import model.Produto;
 
 /**
@@ -16,8 +18,9 @@ import model.Produto;
  * @author vinicius
  */
 public class CategoriaProdutoDAO {
+
     private PreparedStatement instrucao;
-    private ArrayList<Produto> listaDeProdutos;
+    private ArrayList<CategoriaProduto> listaDeCategoriasProduto;
 
     public CategoriaProdutoDAO() { // Avisa no console caso o programa consiga se conectar sem problemas ao BD;
         try {
@@ -29,12 +32,32 @@ public class CategoriaProdutoDAO {
         }
 
     }
-    
-    /*public CategoriaProduto buscaCategoriaProduto(int id){
-        String codigoSQL 
-                = "SELECT"
-                + "id,"
+
+    public CategoriaProduto buscaCategoriaProduto(int id) {
+        String codigoSQL
+                = "SELECT "
                 + "descricao "
-                + "FROM categoria_produto"
-    }*/
+                + "FROM categoria_produto "
+                + "WHERE id_categoria_produto = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setInt(1, id);
+            ResultSet resultado = instrucao.executeQuery();
+
+            CategoriaProduto categoriaProduto = new CategoriaProduto(
+                    id,
+                    resultado.getString("descricao")
+            );
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return categoriaProduto;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca!");
+            throw new RuntimeException(e);
+        }
+    }
 }
