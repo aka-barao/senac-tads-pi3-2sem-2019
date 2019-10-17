@@ -13,13 +13,13 @@ import java.util.Date;
  */
 public class Produto {
 
-    protected int id;
-    protected int quantidadeEstoque;
-    protected double valor;
-    protected String nome;
-    protected String descricao;
-    protected CategoriaProduto categoriaProduto;
-    protected Date dataCadastro;
+    private int id;
+    private int quantidadeEstoque;
+    private double valor;
+    private String nome;
+    private String descricao;
+    private CategoriaProduto categoriaProduto;
+    private Date dataCadastro;
 
     // Construtor utilizado no fluxo de exclusão
     public Produto(int id) {

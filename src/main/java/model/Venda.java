@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Venda {
     
+    private int IdVenda;
     private Date HoraVenda;
     private ArrayList<ListaVenda> listaItemVenda = new ArrayList<>();
     private Cliente Cliente;

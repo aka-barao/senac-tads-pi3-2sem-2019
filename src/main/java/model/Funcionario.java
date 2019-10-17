@@ -12,9 +12,20 @@ import java.util.Date;
  * @author samue
  */
 public class Funcionario extends Pessoa{
-    
-    public Funcionario(int id, String nome, Date dataNascimento, String cpf){
+    private String Cargo;
+            
+    public Funcionario(int id, String nome, Date dataNascimento, String cpf, String Cargo){
         super(id, nome, dataNascimento, cpf);
+        this.Cargo = Cargo;
     }
+
+    public String getCargo() {
+        return Cargo;
+    }
+
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
+    }
+    
     
 }
