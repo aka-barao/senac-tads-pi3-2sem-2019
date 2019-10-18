@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import model.UnidadeEmpresa;
  *
  * @author vinicius
  */
+@WebServlet(name = "ProdutoController", urlPatterns = {"/produtos"})
 public class ProdutoController extends HttpServlet {
 
     private ProdutoDAO produtoDAO;
@@ -67,6 +69,8 @@ public class ProdutoController extends HttpServlet {
                 default:
                     listarProdutos(request, response);
                     break;
+                    
+                    
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
