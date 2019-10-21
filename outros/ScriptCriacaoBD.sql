@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `empresa_tades`.`unidade_empresa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresa_tades`.`unidade_empresa` (
-  `id_unidade_empresa` INT NOT NULL,
+  `id_unidade_empresa` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(100) NULL,
   `tipo_unidade` INT NOT NULL,
   PRIMARY KEY (`id_unidade_empresa`))
@@ -77,7 +77,7 @@ ENGINE = InnoDB;
 -- Table `empresa_tades`.`pessoa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresa_tades`.`pessoa` (
-  `id_pessoa` INT NOT NULL,
+  `id_pessoa` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL DEFAULT 'Valor Não Atribuido',
   `data_nascimento` DATE NULL,
   `cpf` VARCHAR(45) NOT NULL DEFAULT 'Valor Não Atribuido',
@@ -99,7 +99,7 @@ ENGINE = InnoDB;
 -- Table `empresa_tades`.`cargo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresa_tades`.`cargo` (
-  `id_cargo` INT NOT NULL,
+  `id_cargo` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`id_cargo`))
 ENGINE = InnoDB;
@@ -109,7 +109,7 @@ ENGINE = InnoDB;
 -- Table `empresa_tades`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresa_tades`.`funcionario` (
-  `id_funcionario` INT NOT NULL,
+  `id_funcionario` INT NOT NULL AUTO_INCREMENT,
   `id_pessoa` INT NOT NULL,
   `id_cargo` INT NOT NULL,
   `id_departamento` INT NOT NULL,
@@ -146,7 +146,7 @@ ENGINE = InnoDB;
 -- Table `empresa_tades`.`cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empresa_tades`.`cliente` (
-  `id_cliente` INT NOT NULL,
+  `id_cliente` INT NOT NULL AUTO_INCREMENT,
   `id_pessoa` INT NOT NULL,
   PRIMARY KEY (`id_cliente`, `id_pessoa`),
   INDEX `fk_Cliente_Pessoa1_idx` (`id_pessoa` ASC) VISIBLE,
