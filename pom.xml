@@ -16,6 +16,29 @@
         <jakartaee>8.0</jakartaee>
     </properties>
     
+    <organization>
+        <name>Senac TADS PI3</name>
+    </organization>
+    
+    <developers>
+        <developer>
+            <id>viniciuselias28</id>
+            <name>Vinicius Elias</name>
+        </developer>
+        <developer>
+            <id>SamuelAraujoSts</id>
+            <name>Samuel Araujo</name>
+        </developer>
+        <developer>
+            <id>GabrielleConceicao</id>
+            <name>Gabrielle Conceicao</name>
+        </developer>
+        <developer>
+            <id>taizecarminatti</id>
+            <name>Taize Carminatti</name>
+        </developer>
+    </developers>
+        
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
         <dependency>
@@ -27,6 +50,12 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
