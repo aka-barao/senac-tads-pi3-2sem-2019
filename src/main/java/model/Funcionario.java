@@ -17,7 +17,6 @@ public class Funcionario extends Pessoa{
     private int idFuncionario;
     
     public Funcionario(){
-        
     }
             
     public Funcionario(int id, String nome, Date dataNascimento, String cpf, String Cargo){

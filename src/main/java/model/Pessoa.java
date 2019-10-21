@@ -17,6 +17,8 @@ public abstract class Pessoa {
     protected String nome;
     protected Date dataNascimento;
     protected String cpf;
+    
+    public Pessoa(){}
 
     public Pessoa(int idPessoa, String nome, Date dataNascimento, String cpf) {
         this.idPessoa = idPessoa;

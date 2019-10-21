@@ -4,9 +4,12 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 17/10/2019, 12:36:22
-    Author     : samue
+    Created on : 21/10/2019, 20:44:49
+    Author     : samuel.asantos8
 */
+body{
+    background-color: #DCDCDC;
+}
 .erro-input {
     display: none;
     color: #e74c3c;
@@ -58,18 +61,4 @@ header{
     border-color: red;
     border-radius: 5px;
 }
-/*#logoTades{
-    //width: 150px;
-   // height: 100px;
-    
-}
-.divForm{
-    position:relative;
-    left:37%;
-    top:29%;
-    width:320px;
-    height:270px;
-    display: flex; 
-    justify-content: center;	
-}*/
 

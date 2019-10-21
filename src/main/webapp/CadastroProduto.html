@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tades - Cadastro de Produtos</title>
+        <link rel="stylesheet" href="Css/StyleCadastroProduto.css" type="text/css">
+    </head>
+    
+    <body>
+        <header class="Menu">
+            <a class="logo" href="Index.html">
+                <img id="logoTades" src="Imagens/logo.png" alt="Logo da Empresa Tades">
+            </a>
+            <ul class="MenuLinks">
+                <li id="Login"><a href="Login.html">Login</a></li>
+            </ul>
+        </header>
+        <div class ="Container_Form">
+            <form class="">
+                <div>
+                    <h1>Cadastro de Funcionario</h1>
+                </div>
+                <div>
+                    <label for="txtDescricao">Descrição</label>
+                    <div>
+                        <input class="campo" type="text" name="descricao" id="txtDesc" placeholder="Descrição" required maxlength="100"/>
+                        <div class="erro-input">
+                            Digite a descrição
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="txtPreço">Preço</label>
+                    <div>
+                        <input class="campo" type="text" name="preco" id="txtPreco" placeholder="Preço" required maxlength="100"/>
+                        <div class="erro-input">
+                            Digite o preço do produto
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="txtQuantidade">Quantidade</label>
+                    <div>
+                        <input class="campo" type="text" name="Quantidade" id="txtQuant" placeholder="Quantidade"/>
+                        <div class="erro-input">
+                            Digite a quantidade do produto.
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="txtCategoria">Categoria</label>
+                    <div>
+                        <input class="campo" type="text" name="Categoria" id="txtCategoria" placeholder="Categoria"/>
+                        <div class="erro-input">
+                            Digite a categoria do produto.
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="txtDtCadastro">DataCadastro</label>
+                    <div>
+                        <input class="campo" type="date" name="dataCadastro" id="txtDtCadastro"/>
+                    </div>
+                </div>
+                <fieldset>
+                    <legend>Unidade</legend>
+                    <div>
+                        <div>
+                            <input type="checkbox" name="unidade" 
+                                   id="unidad1" value="unidade1" />
+                            <label for="unidade1">
+                                Unidade 1
+                            </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="interesses" 
+                                   id="unidade2" value="unidade2" />
+                            <label for="unidade2">
+                                Unidade 2
+                            </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="interesses" 
+                                   id="Unidade3" value="unidade3" />
+                            <label for="Unidade3">
+                                Unidade 3
+                            </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="interesses" 
+                                   id="Unidade4" value="unidade4" />
+                            <label for="Unidade4">
+                                Unidade 4
+                            </label>
+                        </div>
+                        <div class="erro-input">Selecione pelo menos uma opção</div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

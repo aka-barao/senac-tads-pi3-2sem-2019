@@ -15,9 +15,8 @@ import java.util.logging.Logger;
 public class Cliente extends Pessoa{
     
     private int idCliente;
-    
+
     public Cliente(){
-        
     }
 
     public Cliente(int idCliente, int idPessoa, String nome, Date dataNascimento, String cpf) {
