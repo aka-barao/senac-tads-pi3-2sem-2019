@@ -13,24 +13,24 @@ import java.util.Date;
  */
 public abstract class Pessoa {
     
-    protected int id;
+    protected int idPessoa;
     protected String nome;
     protected Date dataNascimento;
     protected String cpf;
 
-    public Pessoa(int id, String nome, Date dataNascimento, String cpf) {
-        this.id = id;
+    public Pessoa(int idPessoa, String nome, Date dataNascimento, String cpf) {
+        this.idPessoa = idPessoa;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
     }
 
-    public int getId() {
-        return id;
+    public int getIdPessoa() {
+        return idPessoa;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPessoa(int idPessoa) {
+        this.idPessoa = idPessoa;
     }
 
     public String getNome() {

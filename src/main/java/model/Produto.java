@@ -59,9 +59,8 @@ public class Produto {
         this.id = id;
     }
 
-    // Para implementar - Retornar estoque de determinada unidade
     public int getQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa) {
-        return quantidadeEstoque.get(this);
+        return quantidadeEstoque.get(unidadeEmpresa);
     }
 
     public void setQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque) {
@@ -99,5 +98,32 @@ public class Produto {
     public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
         this.categoriaProduto = categoriaProduto;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Produto other = (Produto) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }

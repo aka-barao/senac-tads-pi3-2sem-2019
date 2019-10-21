@@ -120,6 +120,7 @@ public class ProdutoDAO {
             ResultSet resultado = instrucao.executeQuery();
 
             while (resultado.next()) {
+
                 Produto produto = new Produto(
                         resultado.getInt("produto.id_produto"),
                         resultado.getDouble("produto.valor"),
@@ -128,9 +129,22 @@ public class ProdutoDAO {
                         resultado.getDate("produto.data_cadastro")
                 );
 
+                if (listaDeProdutos.contains(produto)) {
+                    unidadeEmpresaDAO = new UnidadeEmpresaDAO();
+
+                    UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
+                            resultado.getInt("quantidade_estoque.id_unidade_empresa"));
+
+                    Produto produtoExistente = listaDeProdutos.get(listaDeProdutos.indexOf(produto));
+                    produtoExistente.setQuantidadeEstoque(unidadeEmpresa,
+                            resultado.getInt("quantidade_estoque.quantidade_estoque"));
+
+                    continue;
+                }
+
                 CategoriaProduto categoria = new CategoriaProduto(
                         resultado.getInt("categoria_produto.id_categoria_produto"),
-                        resultado.getString("ccategoria_produto.descricao")
+                        resultado.getString("categoria_produto.descricao")
                 );
 
                 unidadeEmpresaDAO = new UnidadeEmpresaDAO();
@@ -294,13 +308,16 @@ public class ProdutoDAO {
                     resultado.getString("categoria_produto.descricao")
             );
 
-            unidadeEmpresaDAO = new UnidadeEmpresaDAO();
-            UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
-                    resultado.getInt("quantidade_estoque.id_unidade_empresa"));
-
             produto.setCategoriaProduto(categoria);
-            produto.setQuantidadeEstoque(unidadeEmpresa,
-                    resultado.getInt("quantidade_estoque.quantidade_estoque"));
+
+            while (resultado.next()) {
+                unidadeEmpresaDAO = new UnidadeEmpresaDAO();
+                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
+                        resultado.getInt("quantidade_estoque.id_unidade_empresa"));
+
+                produto.setQuantidadeEstoque(unidadeEmpresa,
+                        resultado.getInt("quantidade_estoque.quantidade_estoque"));
+            }
 
             resultado.close();
             instrucao.close();

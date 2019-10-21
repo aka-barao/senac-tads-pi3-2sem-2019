@@ -14,6 +14,17 @@ import java.util.logging.Logger;
  */
 public class Cliente extends Pessoa{
     
+    private int idCliente;
+    
+    public Cliente(){
+        
+    }
+
+    public Cliente(int idCliente, int idPessoa, String nome, Date dataNascimento, String cpf) {
+        super(idPessoa, nome, dataNascimento, cpf);
+        this.idCliente = idCliente;
+    }
+    
     public Cliente(int id, String nome, Date dataNascimento, String cpf) {
         super(id, nome, dataNascimento, cpf);
     }
