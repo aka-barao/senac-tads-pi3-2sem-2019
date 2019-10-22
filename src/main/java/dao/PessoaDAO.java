@@ -238,4 +238,60 @@ public class PessoaDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public Pessoa buscarClientePorCPF(String cpf){
+        String codigoSQL
+                = "SELECT "
+                + "id_cliente,"
+                + "nome,"
+                + "data_nascimento,"
+                + "cpf "
+                + "FROM Cliente "
+                + "WHERE cpf = ?";
+        
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, cpf);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Cliente cliente = instanciarCliente(resultado);
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return cliente;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca de Pessoa!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Pessoa buscarFuncionarioPorCPF(String cpf){
+        String codigoSQL
+                = "SELECT "
+                + "id_funcionario,"
+                + "nome,"
+                + "data_nascimento,"
+                + "cpf "
+                + "FROM Funcionario "
+                + "WHERE cpf = ?";
+        
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, cpf);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Funcionario funcionario = instanciarFuncionario(resultado);
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return funcionario;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca de Pessoa!");
+            throw new RuntimeException(e);
+        }
+    }
 }
