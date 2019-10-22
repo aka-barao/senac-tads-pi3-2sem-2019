@@ -118,7 +118,7 @@ public class ProdutoController extends HttpServlet {
     private void mostrarFormularioEditarProduto(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Produto produto = produtoDAO.buscarProduto(id);
+        Produto produto = produtoDAO.buscarProdutoPorID(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("editar_produto.jsp");
         request.setAttribute("produto", produto);
         dispatcher.forward(request, response);

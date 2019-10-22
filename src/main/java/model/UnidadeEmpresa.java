@@ -11,25 +11,25 @@ package model;
  */
 public class UnidadeEmpresa {
     
-    protected int id;
+    protected int idUnidadeEmpresa;
     protected String descricao;
     protected int tipo_unidade;
 
     public UnidadeEmpresa() {
     }
 
-    public UnidadeEmpresa(int id, String descricao, int tipo_unidade) {
-        this.id = id;
+    public UnidadeEmpresa(int idUnidadeEmpresa, String descricao, int tipo_unidade) {
+        this.idUnidadeEmpresa = idUnidadeEmpresa;
         this.descricao = descricao;
         this.tipo_unidade = tipo_unidade;
     }
 
-    public int getId() {
-        return id;
+    public int getIdUnidadeEmpresa() {
+        return idUnidadeEmpresa;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUnidadeEmpresa(int idUnidadeEmpresa) {
+        this.idUnidadeEmpresa = idUnidadeEmpresa;
     }
 
     public String getDescricao() {
@@ -51,7 +51,7 @@ public class UnidadeEmpresa {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + this.id;
+        hash = 29 * hash + this.idUnidadeEmpresa;
         return hash;
     }
 
@@ -67,7 +67,7 @@ public class UnidadeEmpresa {
             return false;
         }
         final UnidadeEmpresa other = (UnidadeEmpresa) obj;
-        if (this.id != other.id) {
+        if (this.idUnidadeEmpresa != other.idUnidadeEmpresa) {
             return false;
         }
         return true;

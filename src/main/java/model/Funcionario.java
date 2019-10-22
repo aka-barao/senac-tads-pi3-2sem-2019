@@ -6,30 +6,32 @@
 package model;
 
 import java.util.Date;
+import model.Cargo;
 
 /**
  *
  * @author samue
  */
 public class Funcionario extends Pessoa{
-    private String cargo;
+    private Cargo cargo;
     private UnidadeEmpresa unidadeEmpresa;
     private int idFuncionario;
+    private Departamento departamento;
     
     public Funcionario(){
     }
             
-    public Funcionario(int id, String nome, Date dataNascimento, String cpf, String Cargo){
-        super(id, nome, dataNascimento, cpf);
+    public Funcionario(int idPessoa, String nome, Date dataNascimento, String cpf, Cargo Cargo){
+        super(idPessoa, nome, dataNascimento, cpf);
         this.cargo = Cargo;
     }
 
-    public String getCargo() {
+    public Cargo getCargo() {
         return cargo;
     }
 
-    public void setCargo(String Cargo) {
-        this.cargo = Cargo;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
     public UnidadeEmpresa getUnidadeEmpresa() {
@@ -46,6 +48,41 @@ public class Funcionario extends Pessoa{
 
     public void setIdFuncionario(int idFuncionario) {
         this.idFuncionario = idFuncionario;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + this.idFuncionario;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Funcionario other = (Funcionario) obj;
+        if (this.idFuncionario != other.idFuncionario) {
+            return false;
+        }
+        return true;
     }
     
     

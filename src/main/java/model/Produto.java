@@ -22,6 +22,10 @@ public class Produto {
     protected String descricao;
     protected CategoriaProduto categoriaProduto;
     protected Date dataCadastro;
+    
+    public Produto(){
+        
+    }
 
     // Construtor utilizado no fluxo de exclusão
     public Produto(int id) {

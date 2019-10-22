@@ -76,7 +76,7 @@ public class ProdutoDAO {
             instrucao = conexao.prepareStatement(insereQuantidadeEstoqueSQL);
 
             instrucao.setInt(1, produto.getId());
-            instrucao.setInt(2, unidadeEmpresa.getId());
+            instrucao.setInt(2, unidadeEmpresa.getIdUnidadeEmpresa());
             instrucao.setInt(3, produto.getQuantidadeEstoque(unidadeEmpresa));
 
             instrucao.execute();
@@ -220,7 +220,7 @@ public class ProdutoDAO {
 
             instrucao.setInt(1, produto.getQuantidadeEstoque(unidadeEmpresa));
             instrucao.setInt(2, produto.getId());
-            instrucao.setInt(3, unidadeEmpresa.getId());
+            instrucao.setInt(3, unidadeEmpresa.getIdUnidadeEmpresa());
 
             int linhasAfetadasQuantidadeEstoque = instrucao.executeUpdate();
             instrucao.close();
@@ -269,7 +269,7 @@ public class ProdutoDAO {
 
     }
 
-    public Produto buscarProduto(int id) {
+    public Produto buscarProdutoPorID(int id) {
         String codigoSQL
                 = "SELECT "
                 + "produto.id_produto,"
