@@ -13,57 +13,55 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header>
-		<div class="LogoDiv">
-			<a href="Index.html">
-				<img id="logoTades" src="Imagens/logo.png" alt="Logo da Empresa Tades">
-			</a>
-		</div>
-		<div>
-			
-		</div>
-	</header>
-	<div class="divForm">
-		<div>
-			<h1>Cadastro de Funcionario</h1>
-		</div>
-		<form method="post" action="" >
-			<div>
-                <label for="txtNome">Nome</label>
-                <div>
-                    <input class="campo" type="text" name="nome" id="txtNome"  placeholder="Nome" required maxlength="100"/>
-                </div>
-            </div>
+        <header class="Menu">
+            <a class="logo" href="Index.html">
+                <img id="logoTades" src="Imagens/logo.png" alt="Logo da Empresa Tades">
+            </a>
+            <ul class="MenuLinks">
+                <li id="Login"><a href="Login.html">Login</a></li>
+            </ul>
+        </header>
+        <div class="Container_Form">
             <div>
-                <label for="txtCPF">CPF</label>
-                <div>
-                    <input class="campo" type="text" name="CPF" id="txtCPF" placeholder="CPF" required maxlength="11" size="11">
-                </div>
+                <h1>Cadastro de Funcionario</h1>
             </div>
-            <div>
-                <label for="txtDtNascimento">Data de nascimento</label>
+            <form method="post" action="" >
                 <div>
-                    <input type="date" name="dtNascimento" id="txtDtNascimento" />
-                	<div class="erro-input">
-                		Digite uma data válida.
-                	</div>
+                    <label for="txtNome">Nome</label>
+                    <div>
+                        <input class="campo" type="text" name="nome" id="txtNome"  placeholder="Nome" required maxlength="100"/>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label for="txtCargo">Cargo</label>
                 <div>
-                    <input type="text" name="cargo" id="txtCargo" />
-                	<div class="erro-input">
-                		Digite um cargo.
-                	</div>
+                    <label for="txtCPF">CPF</label>
+                    <div>
+                        <input class="campo" type="text" name="CPF" id="txtCPF" placeholder="CPF" required maxlength="11" size="11">
+                    </div>
                 </div>
-            </div>
+                <div>
+                    <label for="txtDtNascimento">Data de nascimento</label>
+                    <div>
+                        <input type="date" name="dtNascimento" id="txtDtNascimento" />
+                        <div class="erro-input">
+                            Digite uma data válida.
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="txtCargo">Cargo</label>
+                    <div>
+                        <input type="text" name="cargo" id="txtCargo" />
+                        <div class="erro-input">
+                            Digite um cargo.
+                        </div>
+                    </div>
+                </div>
 
-            <div>
-            	<button type="submit" name="Btnconfirmar" id="Btnconfirmar">Confirmar</button>
-            	<button type="reset" name="Btncancelar" id="Btncancelar">Cancelar</button>
-            </div>
-		</form>
-	</div>
+                <div>
+                    <button type="submit" name="Btnconfirmar" id="Btnconfirmar">Confirmar</button>
+                    <button type="reset" name="Btncancelar" id="Btncancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
