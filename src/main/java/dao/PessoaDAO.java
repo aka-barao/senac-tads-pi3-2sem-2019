@@ -68,7 +68,8 @@ public class PessoaDAO {
     public boolean cadastrarNovoFuncionario(Funcionario funcionario){
         boolean retorno = false;
         
-        cadastrarNovaPessoa(funcionario);
+        if(!cadastrarNovaPessoa(funcionario)) return retorno;
+        
         Pessoa pessoaFuncionario = buscarPessoaPorCPF(funcionario.getCpf());
 
         String cadastraFuncionarioSQL = "INSERT INTO funcionario(id_pessoa, id_cargo, id_departamento, id_unidade_empresa)"
@@ -100,7 +101,8 @@ public class PessoaDAO {
     public boolean cadastrarNovoCliente(Cliente cliente){
         boolean retorno = false;
         
-        cadastrarNovaPessoa(cliente);
+        if(!cadastrarNovaPessoa(cliente)) return retorno;
+        
         Pessoa pessoaCliente = buscarPessoaPorCPF(cliente.getCpf());
 
         String cadastraClienteSQL = "INSERT INTO cliente(id_pessoa)"
@@ -172,6 +174,148 @@ public class PessoaDAO {
         }
     }
     
+    public boolean atualizarPessoa(Pessoa pessoa) {
+
+        boolean retorno = false;
+
+        String atualizaPessoaSQL
+                = "UPDATE pessoa SET "
+                + "nome = ?,"
+                + "data_nascimento = ?,"
+                + "cpf = ? "
+                + "WHERE id_pessoa = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(atualizaPessoaSQL);
+
+            instrucao.setString(1, pessoa.getNome());
+            instrucao.setDate(2, new java.sql.Date(pessoa.getDataNascimento().getTime()));
+            instrucao.setString(3, pessoa.getCpf());
+
+            int linhasAfetadasPessoa = instrucao.executeUpdate();
+            instrucao.close();
+
+            retorno = linhasAfetadasPessoa > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Pessoa!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+    
+    public boolean atualizarFuncionario(Funcionario funcionario) {
+
+        boolean retorno = false;
+        
+        if(!atualizarPessoa(funcionario)) return retorno;
+
+        String atualizaFuncionarioSQL
+                = "UPDATE funcionario SET "
+                + "id_cargo = ?,"
+                + "id_departamento = ?,"
+                + "id_unidade_empresa = ? "
+                + "WHERE id_funcionario = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(atualizaFuncionarioSQL);
+
+            instrucao.setInt(1, funcionario.getCargo().getIdCargo());
+            instrucao.setInt(2, funcionario.getDepartamento().getIdDepartamento());
+            instrucao.setInt(3, funcionario.getUnidadeEmpresa().getIdUnidadeEmpresa());
+            instrucao.setInt(4, funcionario.getIdFuncionario());
+
+            int linhasAfetadasFuncionario = instrucao.executeUpdate();
+            instrucao.close();
+
+            retorno = linhasAfetadasFuncionario > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Funcionário!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+    
+    /* Método ainda sem utilidade
+    public boolean atualizarCliente(Cliente cliente) {
+
+        boolean retorno = false;
+        
+        if(!atualizarPessoa(cliente)) return retorno;
+
+        String atualizaClienteSQL
+                = "UPDATE cliente SET "
+                + "id_cargo = ?,"
+                + "id_departamento = ?,"
+                + "id_unidade_empresa = ? "
+                + "WHERE id_funcionario = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(atualizaClienteSQL);
+
+            instrucao.setInt(1, funcionario.getCargo().getIdCargo());
+            instrucao.setInt(2, funcionario.getDepartamento().getIdDepartamento());
+            instrucao.setInt(3, funcionario.getUnidadeEmpresa().getIdUnidadeEmpresa());
+            instrucao.setInt(4, funcionario.getIdFuncionario());
+
+            int linhasAfetadasFuncionario = instrucao.executeUpdate();
+            instrucao.close();
+
+            retorno = linhasAfetadasFuncionario > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Funcionário!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }*/
+    
+    public boolean excluirPessoa(int id) {
+
+        boolean retorno = false;
+
+        String deletaPessoaSQL = "DELETE FROM pessoa WHERE id_pessoa = ?";
+        String deletaFuncionarioSQL = "DELETE FROM funcionario WHERE id_pessoa = ?";
+        String deletaClienteSQL = "DELETE FROM cliente WHERE id_pessoa = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(deletaClienteSQL);
+            instrucao.setInt(1, id);
+            int linhasAfetadasCliente = instrucao.executeUpdate();
+            instrucao.close();
+
+            instrucao = conexao.prepareStatement(deletaFuncionarioSQL);
+            instrucao.setInt(1, id);
+            int linhasAfetadasFuncionario = instrucao.executeUpdate();
+            instrucao.close();
+            
+            instrucao = conexao.prepareStatement(deletaPessoaSQL);
+            instrucao.setInt(1, id);
+            int linhasAfetadasPessoa = instrucao.executeUpdate();
+            instrucao.close();
+            
+            retorno = linhasAfetadasPessoa > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Exclusão de Pessoa!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+    
     private Pessoa instanciarPessoa(ResultSet resultadoConsulta) throws SQLException {
         Pessoa pessoa = new Pessoa() {};
 
@@ -205,9 +349,9 @@ public class PessoaDAO {
         funcionario.setCpf(resultadoConsulta.getString("pessoa.cpf"));
 
         // Falta implementar
-        // setCargo
-        // setDepartamento
-        // setUnidadeEmpresa
+        // setCargo e consulta
+        // setDepartamento e consulta
+        // setUnidadeEmpresa e consulta
         return funcionario;
     }
     
@@ -242,12 +386,15 @@ public class PessoaDAO {
     public Pessoa buscarClientePorCPF(String cpf){
         String codigoSQL
                 = "SELECT "
-                + "id_cliente,"
-                + "nome,"
-                + "data_nascimento,"
-                + "cpf "
-                + "FROM Cliente "
-                + "WHERE cpf = ?";
+                + "cliente.id_cliente,"
+                + "pessoa.id_pessoa,"
+                + "pessoa.nome,"
+                + "pessoa.data_nascimento,"
+                + "pessoa.cpf "
+                + "FROM pessoa "
+                + "JOIN cliente ON "
+                + "cliente.id_pessoa = pessoa.id_pessoa "
+                + "AND pessoa.cpf = ?";
         
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
@@ -262,7 +409,7 @@ public class PessoaDAO {
 
             return cliente;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca de Pessoa!");
+            System.out.println("Erro na operação de Busca de Cliente!");
             throw new RuntimeException(e);
         }
     }
@@ -270,12 +417,18 @@ public class PessoaDAO {
     public Pessoa buscarFuncionarioPorCPF(String cpf){
         String codigoSQL
                 = "SELECT "
-                + "id_funcionario,"
-                + "nome,"
-                + "data_nascimento,"
-                + "cpf "
-                + "FROM Funcionario "
-                + "WHERE cpf = ?";
+                + "funcionario.id_funcionario,"
+                + "funcionario.id_cargo,"
+                + "funcionario.id_departamento,"
+                + "funcionario.id_unidade_empresa,"
+                + "pessoa.id_pessoa,"
+                + "pessoa.nome,"
+                + "pessoa.data_nascimento,"
+                + "pessoa.cpf "
+                + "FROM pessoa "
+                + "JOIN funcionario ON "
+                + "funcionario.id_pessoa = pessoa.id_pessoa "
+                + "AND pessoa.cpf = ?";
         
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
@@ -290,7 +443,7 @@ public class PessoaDAO {
 
             return funcionario;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca de Pessoa!");
+            System.out.println("Erro na operação de Busca de Funcionário!");
             throw new RuntimeException(e);
         }
     }
