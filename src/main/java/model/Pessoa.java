@@ -19,7 +19,13 @@ public abstract class Pessoa {
     protected String cpf;
     
     public Pessoa(){}
-
+    
+    public Pessoa(String nome, Date dataNascimento, String cpf) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+    }
+    
     public Pessoa(int idPessoa, String nome, Date dataNascimento, String cpf) {
         this.idPessoa = idPessoa;
         this.nome = nome;

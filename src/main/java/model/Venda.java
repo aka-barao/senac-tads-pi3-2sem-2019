@@ -16,12 +16,24 @@ public class Venda {
     
     private int IdVenda;
     private Date HoraVenda;
-    private ArrayList<ListaVenda> listaItemVenda = new ArrayList<>();
+    private ListaVenda listaVenda;
     private Cliente Cliente;
-
+    
     public Venda(Date HoraVenda, Cliente Cliente) {
         this.HoraVenda = HoraVenda;
         this.Cliente = Cliente;
+    }
+    
+    public int getIdVenda() {
+        return IdVenda;
+    }
+
+    public ListaVenda getListaVenda() {
+        return listaVenda;
+    }
+
+    public void setListaVenda(ListaVenda listaVenda) {
+        this.listaVenda = listaVenda;
     }
     
     public Cliente getCliente() {

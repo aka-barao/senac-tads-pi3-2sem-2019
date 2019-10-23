@@ -14,8 +14,12 @@ public class Cargo {
     private int idCargo;
     private String descricao;
     
-    public Cargo(){
-        
+    public Cargo(){  
+    }
+    
+    public Cargo(int id, String descricao){
+        this.idCargo = id;
+        this.descricao = descricao;
     }
 
     public int getIdCargo() {

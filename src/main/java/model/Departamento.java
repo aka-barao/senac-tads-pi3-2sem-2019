@@ -17,6 +17,11 @@ public class Departamento {
     public Departamento(){
         
     }
+    
+    public Departamento(int id, String descricao){
+        this.idDepartamento = id;
+        this.descricao = descricao;
+    }
 
     public int getIdDepartamento() {
         return idDepartamento;
