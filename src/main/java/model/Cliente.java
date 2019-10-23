@@ -24,6 +24,10 @@ public class Cliente extends Pessoa{
         this.idCliente = idCliente;
     }
     
+    public Cliente( String nome, Date dataNascimento, String cpf) {
+        super(nome, dataNascimento, cpf);
+    }
+    
     public Cliente(int id, String nome, Date dataNascimento, String cpf) {
         super(id, nome, dataNascimento, cpf);
     }

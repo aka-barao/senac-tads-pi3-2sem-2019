@@ -10,12 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.CategoriaProduto;
 import model.Cliente;
 import model.Funcionario;
 import model.Pessoa;
-import model.Produto;
-import model.UnidadeEmpresa;
 
 /**
  *
@@ -96,7 +93,7 @@ public class PessoaDAO {
             return retorno;
         }
     }
-    
+    /*
     public boolean cadastrarNovoCliente(Cliente cliente){
         boolean retorno = false;
         
@@ -125,7 +122,7 @@ public class PessoaDAO {
             return retorno;
         }
     }
-
+    */
     public ArrayList<Pessoa> listarPessoas() {
         String codigoSQL
                 = "SELECT "
@@ -239,7 +236,7 @@ public class PessoaDAO {
         }
     }
     
-    public Pessoa buscarClientePorCPF(String cpf){
+    public Cliente buscarClientePorCPF(String cpf){
         String codigoSQL
                 = "SELECT "
                 + "id_cliente,"
@@ -267,7 +264,7 @@ public class PessoaDAO {
         }
     }
     
-    public Pessoa buscarFuncionarioPorCPF(String cpf){
+    public Funcionario buscarFuncionarioPorCPF(String cpf){
         String codigoSQL
                 = "SELECT "
                 + "id_funcionario,"
@@ -294,4 +291,35 @@ public class PessoaDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public Cliente buscarClientePorID(int ID){
+        String codigoSQL
+                = "SELECT "
+                + "id_cliente,"
+                + "nome,"
+                + "data_nascimento,"
+                + "cpf "
+                + "FROM Cliente "
+                + "WHERE id = ?";
+        
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setInt(1, ID);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Cliente cliente = instanciarCliente(resultado);
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return cliente;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca de Pessoa!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
+    
 }
