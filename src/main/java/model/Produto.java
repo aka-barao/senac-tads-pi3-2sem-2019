@@ -32,7 +32,7 @@ public class Produto {
         this.id = id;
     }
 
-    public Produto(int id, UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque, double valor, String nome, String descricao) {
+    public Produto(int id, UnidadeEmpresa unidadeEmpresa, Integer quantidadeEstoque, double valor, String nome, String descricao) {
         this.id = id;
         this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
         this.valor = valor;
@@ -67,7 +67,7 @@ public class Produto {
         return quantidadeEstoque.get(unidadeEmpresa);
     }
 
-    public void setQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa, int quantidadeEstoque) {
+    public void setQuantidadeEstoque(UnidadeEmpresa unidadeEmpresa, Integer quantidadeEstoque) {
         this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
     }
 
@@ -102,6 +102,16 @@ public class Produto {
     public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
         this.categoriaProduto = categoriaProduto;
     }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+    
+    
 
     @Override
     public int hashCode() {

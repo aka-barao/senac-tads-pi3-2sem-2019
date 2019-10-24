@@ -19,7 +19,7 @@ import model.UnidadeEmpresa;
  * @author vinicius
  */
 public class UnidadeEmpresaDAO {
-    
+
     private PreparedStatement instrucao;
     private ArrayList<Produto> listaDeProdutos;
 
@@ -33,7 +33,7 @@ public class UnidadeEmpresaDAO {
         }
 
     }
-    
+
     public UnidadeEmpresa buscaUnidadeEmpresa(int id) {
         String codigoSQL
                 = "SELECT "
@@ -44,13 +44,15 @@ public class UnidadeEmpresaDAO {
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setInt(1, id);
             ResultSet resultado = instrucao.executeQuery();
+            UnidadeEmpresa unidadeEmpresa = new UnidadeEmpresa();
+            while(resultado != null && resultado.next()) {
+                unidadeEmpresa.setIdUnidadeEmpresa(id);
+                unidadeEmpresa.setDescricao(resultado.getString("descricao"));
+                unidadeEmpresa.setTipo_unidade(resultado.getInt("tipo_unidade"));
 
-            UnidadeEmpresa unidadeEmpresa = new UnidadeEmpresa(
-                    id,
-                    resultado.getString("descricao"),
-                    resultado.getInt("tipo_unidade")
-            );
+            }
 
             resultado.close();
             instrucao.close();
@@ -58,9 +60,9 @@ public class UnidadeEmpresaDAO {
 
             return unidadeEmpresa;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca!");
+            System.out.println("Erro na operação de Busca de Unidade Empresa!");
             throw new RuntimeException(e);
         }
     }
-    
+
 }

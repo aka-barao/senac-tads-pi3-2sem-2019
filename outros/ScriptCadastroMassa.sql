@@ -87,16 +87,16 @@ VALUES (6, 2, 1036);
 
 -- Pessoas (Dados gerados em: https://www.4devs.com.br/gerador_de_pessoas)
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Clara Marlene Duarte', '16/03/1942', '35699154175');
+VALUES ('Clara Marlene Duarte', '16-03-1942', '35699154175');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Matheus Thomas Dias', '02/01/1950', '82326424409');
+VALUES ('Matheus Thomas Dias', '02-01-1950', '82326424409');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Nicolas Iago Barros', '05/02/1965', '57707838777');
+VALUES ('Nicolas Iago Barros', '05-02-1965', '57707838777');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Rodrigo Kaique Yago Silva', '22/12/1999', '40362629048');
+VALUES ('Rodrigo Kaique Yago Silva', '22-12-1999', '40362629048');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Sophia Ester das Neves', '08/04/1975', '95041208492');
+VALUES ('Sophia Ester das Neves', '08-04-1975', '95041208492');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Laís Allana Duarte', '14/07/1965', '74169428889');
+VALUES ('Laís Allana Duarte', '14-07-1965', '74169428889');
 INSERT INTO pessoa(nome, data_nascimento, cpf)
-VALUES ('Valentina Yasmin Mariah Baptista', '06/10/1996', '64094257918');
+VALUES ('Valentina Yasmin Mariah Baptista', '06-10-1996', '64094257918');
