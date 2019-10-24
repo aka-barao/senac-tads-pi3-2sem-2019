@@ -50,19 +50,19 @@ public class ClienteController extends HttpServlet {
             String action = request.getServletPath();
 
             switch (action) {
-                case "/produtos/novo_cliente":
+                case "/clientes/novo_cliente":
                   //  mostrarFormularioNovoCliente(request, response);
                     break;
-                case "/produtos/inserir_cliente":
+                case "/clientes/inserir_cliente":
                   //  inserirCliente(request, response);
                     break;
-                case "/produtos/deletar_cliente":
+                case "/clientes/deletar_cliente":
                   //  deletarCliente(request, response);
                     break;
-                case "/produtos/editar_cliente":
+                case "/clientes/editar_cliente":
                    // mostrarFormularioEditarCliente(request, response);
                     break;
-                case "/produtos/atualizar_cliente":
+                case "/clientes/atualizar_cliente":
                    // atualizarCliente(request, response);
                     break;
                 default:
@@ -79,8 +79,8 @@ public class ClienteController extends HttpServlet {
     private void listarClientes(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Cliente> listaClientes = clienteDAO.listarClientes();
-        request.setAttribute("listaPessoas", listaClientes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("lista_pessoas.jsp");
+        request.setAttribute("listaClientes", listaClientes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("lista_clientes.jsp");
         dispatcher.forward(request, response);
     }
 
