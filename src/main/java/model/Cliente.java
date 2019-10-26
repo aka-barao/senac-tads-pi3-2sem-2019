@@ -18,7 +18,11 @@ public class Cliente extends Pessoa{
 
     public Cliente(){
     }
-
+    
+    public Cliente(int IdCliente){
+        this.idCliente = IdCliente;
+    }
+    
     public Cliente(int idCliente, int idPessoa, String nome, Date dataNascimento, String cpf) {
         super(idPessoa, nome, dataNascimento, cpf);
         this.idCliente = idCliente;

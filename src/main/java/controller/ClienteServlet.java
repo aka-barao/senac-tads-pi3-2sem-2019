@@ -5,29 +5,25 @@
  */
 package controller;
 
-
 import dao.ClienteDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import model.Pessoa;
 
 /**
  *
- * @author gabrielle.csilva11
+ * @author samue
  */
-@WebServlet(name = "ClienteController", urlPatterns = {"/clientes"})
-public class ClienteController extends HttpServlet {
+public class ClienteServlet extends HttpServlet {
+
     
     private ClienteDAO clienteDAO;
     
@@ -36,16 +32,29 @@ public class ClienteController extends HttpServlet {
     public void init() {
         clienteDAO = new ClienteDAO();
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ClienteServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ClienteServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*
         try {
             String action = request.getServletPath();
 
@@ -72,15 +81,39 @@ public class ClienteController extends HttpServlet {
                     
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("Mensagem", "Erro de Banco de Dados");
+        }
+        */
+        try {    
+            listarClientes(request, response);
+        } catch (SQLException ex) {
+            request.setAttribute("Mensagem", "Erro de Banco de Dados");
         }
     }
+
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
     private void listarClientes(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Cliente> listaClientes = clienteDAO.listarClientes();
         request.setAttribute("listaClientes", listaClientes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("lista_clientes.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/cliente/lista_clientes.jsp");
         dispatcher.forward(request, response);
     }
 
