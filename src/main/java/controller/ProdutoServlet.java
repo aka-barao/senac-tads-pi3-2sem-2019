@@ -55,7 +55,6 @@ public class ProdutoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
         try {
             String action = request.getServletPath();
 
@@ -82,13 +81,7 @@ public class ProdutoServlet extends HttpServlet {
                     
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        try{
-            response.getWriter().append("Served at: ").append(request.getContextPath());
-        } catch (Exception ex){
-            request.setAttribute("Mensagem", "Erro banco de dados");
+            
         }
     }
     

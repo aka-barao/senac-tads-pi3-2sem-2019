@@ -24,7 +24,7 @@ public class ConnectionFactory {
         String host = "senac-tads-pi3-scorpions.cgcgme9nfnpo.us-east-1.rds.amazonaws.com";
         String database = "empresa_tades";
         String user = "sistema_tades";
-        String password = "SistemaScorpions123"; // Nunca subir no repositório com a senha salva
+        String password = ""; // Nunca subir no repositório com a senha salva
         String jdbcURL = "jdbc:mysql://senac-tads-pi3-scorpions.cgcgme9nfnpo.us-east-1.rds.amazonaws.com:3306/"
                 + database
                 + "?user=" + user
