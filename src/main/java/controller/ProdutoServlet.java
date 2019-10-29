@@ -86,7 +86,8 @@ public class ProdutoServlet extends HttpServlet {
         }
         */
         try{
-            response.getWriter().append("Served at: ").append(request.getContextPath());
+            listarProdutos(request, response);
+            //response.getWriter().append("Served at: ").append(request.getContextPath());
         } catch (Exception ex){
             request.setAttribute("Mensagem", "Erro banco de dados");
         }

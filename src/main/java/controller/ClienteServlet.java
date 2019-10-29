@@ -54,16 +54,16 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
+        
         try {
-            String action = request.getServletPath();
+            String action = request.getParameter("action");
 
             switch (action) {
                 case "/clientes/novo_cliente":
                   //  mostrarFormularioNovoCliente(request, response);
                     break;
                 case "/clientes/inserir_cliente":
-                  //  inserirCliente(request, response);
+                    inserirCliente(request, response);
                     break;
                 case "/clientes/deletar_cliente":
                   //  deletarCliente(request, response);
@@ -74,8 +74,11 @@ public class ClienteServlet extends HttpServlet {
                 case "/clientes/atualizar_cliente":
                    // atualizarCliente(request, response);
                     break;
-                default:
+                case "/clientes/listar_cliente":
                     listarClientes(request, response);
+                    break;
+                default:
+                    response.getWriter().append("Erro action +").append(request.getContextPath());
                     break;
                     
                     
@@ -84,12 +87,13 @@ public class ClienteServlet extends HttpServlet {
             //Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("Mensagem", "Erro de Banco de Dados");
         }
-        */
+        /*
         try {    
             listarClientes(request, response);
         } catch (SQLException ex) {
             request.setAttribute("Mensagem", "Erro de Banco de Dados");
         }
+        */
     }
 
     
@@ -113,13 +117,13 @@ public class ClienteServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<Cliente> listaClientes = clienteDAO.listarClientes();
         request.setAttribute("listaClientes", listaClientes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/cliente/lista_clientes.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/lista_clientes.jsp");
         dispatcher.forward(request, response);
     }
 
     private void mostrarFormularioNovoCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("novo_cliente.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/cliente.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -131,9 +135,12 @@ public class ClienteServlet extends HttpServlet {
         Date DataNasc = Date.valueOf(request.getParameter("DtNasc"));
 
         Cliente cliente = new Cliente(nome, DataNasc, CPF);
-        clienteDAO.cadastrarNovoCliente(cliente);
+        clienteDAO.inserirNovoCliente(cliente);
 
         response.sendRedirect("lista_clientes");
+        /*
+        response.getWriter().append("Método Inserir Cliente sendo chamado pelo Servlet ").append(request.getContextPath());
+        */
     }
     /*
     private void deletarCliente(HttpServletRequest request, HttpServletResponse response)

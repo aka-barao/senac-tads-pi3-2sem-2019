@@ -24,7 +24,7 @@
 			<li><a href="CadastroFunc.html">Cadastro de Funcionario</a></li>
                         <li><a href="CadastroProduto.html">Cadastro de Produtos</a></li>
                         <li><a href="ProdutoServlet">Lista produtos</a></li>
-                        <li><a href="ClienteServlet">Lista produtos</a></li>
+                        <li><a href="ClienteServlet">Lista Cliente</a></li>
 			<li id="Login"><a href="Login.html">Login</a></li>
             </ul>
 	</header>
