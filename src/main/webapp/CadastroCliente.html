@@ -24,7 +24,8 @@ and open the template in the editor.
             <div>
                 <h1>Cadastro de Cliente</h1>
             </div>
-            <form method="post" action="" >
+            <form method="post" action="/pi3-empresa-tades-1.0-SNAPSHOT/ClienteServlet">
+                <input type="hidden" name="action" value="/clientes/inserir_cliente">
                 <div>
                     <label for="txtNome">Nome</label>
                     <div>
@@ -42,7 +43,6 @@ and open the template in the editor.
                     <div>
                         <input type="date" name="dtNascimento" id="txtDtNascimento" />
                         <div class="erro-input">
-                            Digite uma data válida.
                         </div>
                     </div>
                 </div>

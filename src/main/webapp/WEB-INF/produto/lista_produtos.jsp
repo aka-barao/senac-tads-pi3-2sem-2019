@@ -11,9 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listagem de Produtos</title>
+        <link rel="stylesheet" href="Css/StyleCadastroProduto.css" type="text/css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <header class="Menu">
+            <a class="logo" href="index.html">
+                <img id="logoTades" src="Imagens/logo.png" alt="Logo da Empresa Tades">
+            </a>
+            <ul class="MenuLinks">
+			<li><a href="CadastroCliente.html">Cadastro de Clientes</a></li>
+			<li><a href="CadastroFunc.html">Cadastro de Funcionario</a></li>
+                        <li><a href="CadastroProduto.html">Cadastro de Produtos</a></li>
+                        <li><a href="ProdutoServlet">Lista produtos</a></li>
+                        <li><a href="ClienteServlet">Lista Cliente</a></li>
+			<li id="Login"><a href="Login.html">Login</a></li>
+            </ul>
+	</header>
         <table>
             <caption><h2>Lista de Produtos Cadastrados<h2></caption>
                         <tr>

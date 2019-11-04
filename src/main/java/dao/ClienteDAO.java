@@ -32,7 +32,7 @@ public class ClienteDAO {
 
     }
     
-    public boolean cadastrarNovoCliente(Cliente cliente){
+    public boolean inserirNovoCliente(Cliente cliente){
         boolean retorno = false;
 
         String cadastraClienteSQL = "INSERT INTO cliente(id_pessoa)"

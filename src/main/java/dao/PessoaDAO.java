@@ -9,7 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import model.Cliente;
 import model.Funcionario;
 import model.Pessoa;
@@ -34,7 +40,7 @@ public class PessoaDAO {
 
     }
 
-    public boolean cadastrarNovaPessoa(Pessoa pessoa) {
+    public boolean cadastrarNovaPessoa(Cliente cliente) {
         boolean retorno = false;
 
         String insereProdutoSQL = "INSERT INTO pessoa(nome, data_nascimento, cpf)"
@@ -44,9 +50,13 @@ public class PessoaDAO {
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(insereProdutoSQL);
 
-            instrucao.setString(1, pessoa.getNome());
-            instrucao.setDate(2, new java.sql.Date(pessoa.getDataNascimento().getTime()));
-            instrucao.setString(3, pessoa.getCpf());
+            instrucao.setString(1, cliente.getNome());
+            //instrucao.setDate(2, new java.sql.Date(cliente.getDataNascimento().getTime())); 
+            SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+            Date datanasc = cliente.getDataNascimento();
+            date.format(datanasc);
+            instrucao.setDate(2, (java.sql.Date)datanasc);
+            instrucao.setString(3, cliente.getCpf());
 
             instrucao.execute();
             instrucao.close();
@@ -65,7 +75,7 @@ public class PessoaDAO {
     public boolean cadastrarNovoFuncionario(Funcionario funcionario){
         boolean retorno = false;
         
-        if(!cadastrarNovaPessoa(funcionario)) return retorno;
+        //if(!cadastrarNovaPessoa(funcionario)) return retorno;
         
         Pessoa pessoaFuncionario = buscarPessoaPorCPF(funcionario.getCpf());
 
@@ -94,7 +104,7 @@ public class PessoaDAO {
             return retorno;
         }
     }
-    /*
+    
     public boolean cadastrarNovoCliente(Cliente cliente){
         boolean retorno = false;
         
@@ -124,7 +134,7 @@ public class PessoaDAO {
             return retorno;
         }
     }
-    */
+    
     public ArrayList<Pessoa> listarPessoas() {
         String codigoSQL
                 = "SELECT "
