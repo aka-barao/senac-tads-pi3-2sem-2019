@@ -100,9 +100,9 @@ public class ProdutoDAO {
                 + "produto.nome,"
                 + "produto.descricao,"
                 + "produto.valor,"
+                + "produto.data_cadastro,"
                 + "quantidade_estoque.quantidade_estoque,"
                 + "quantidade_estoque.id_unidade_empresa,"
-                + "produto.data_cadastro,"
                 + "categoria_produto.id_categoria_produto,"
                 + "categoria_produto.descricao "
                 + "FROM produto "
@@ -137,7 +137,7 @@ public class ProdutoDAO {
 
                     Produto produtoExistente = listaDeProdutos.get(listaDeProdutos.indexOf(produto));
                     produtoExistente.setQuantidadeEstoque(unidadeEmpresa,
-                            Integer.valueOf(resultado.getInt("quantidade_estoque.quantidade_estoque"))
+                            resultado.getInt("quantidade_estoque.quantidade_estoque")
                     );
 
                     continue;
@@ -154,7 +154,7 @@ public class ProdutoDAO {
 
                 produto.setCategoriaProduto(categoria);
                 produto.setQuantidadeEstoque(unidadeEmpresa,
-                        Integer.valueOf(resultado.getInt("quantidade_estoque.quantidade_estoque")));
+                        resultado.getInt("quantidade_estoque.quantidade_estoque"));
 
                 listaDeProdutos.add(produto);
             }

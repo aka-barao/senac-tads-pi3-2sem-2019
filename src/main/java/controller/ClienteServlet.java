@@ -26,8 +26,7 @@ import model.Pessoa;
  * @author samue
  */
 public class ClienteServlet extends HttpServlet {
-
-    private PessoaDAO pessoaDAO;
+    
     private ClienteDAO clienteDAO;
 
     @Override
@@ -149,16 +148,13 @@ public class ClienteServlet extends HttpServlet {
         // String nasc = String.valueOf(cliente.getDataNascimento());
         // response.getWriter().append(nasc).append(request.getContextPath());
         try {
-            if (pessoaDAO.cadastrarNovaPessoa(cliente) == false) {
+            if(clienteDAO.inserirNovoCliente(cliente) == false) {
                 response.getWriter().append("ERRO - Cadastro de Nova Pessoa");
             }
-            if (pessoaDAO.cadastrarNovoCliente(cliente) == false) {
-                response.getWriter().append("ERRO - Cadastro de Novo Cliente");
-            }
         } catch (java.lang.NullPointerException nullex) {
-            response.getWriter().append("Erro - Cadastro de Cliente");
+            response.getWriter().append("Erro - Cadastro de Cliente - Null");
         }
-        //response.sendRedirect("/WEB-INF/cliente/lista_clientes.jsp");
+        response.sendRedirect("/WEB-INF/cliente/cliente.jsp");
     }
 
     /*
@@ -171,7 +167,7 @@ public class ClienteServlet extends HttpServlet {
 
     }
      */
-
+    
     private void mostrarFormularioEditarCliente(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));

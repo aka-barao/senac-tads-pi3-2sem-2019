@@ -28,6 +28,7 @@ public class PessoaDAO {
 
     private PreparedStatement instrucao;
     private ArrayList<Pessoa> listaDePessoas;
+    private ArrayList<Cliente> listaDeClientes;
 
     public PessoaDAO() { // Avisa no console caso o programa consiga se conectar sem problemas ao BD;
         try {
@@ -135,7 +136,7 @@ public class PessoaDAO {
         }
     }
     
-    public ArrayList<Pessoa> listarPessoas() {
+    public ArrayList<Cliente> listarPessoas() {
         String codigoSQL
                 = "SELECT "
                 + "pessoa.id_pessoa,"
@@ -150,17 +151,16 @@ public class PessoaDAO {
                 + "LEFT JOIN funcionario ON "
                 + "funcionario.id_pessoa = pessoa.id_pessoa";
 
-        listaDePessoas = new ArrayList<Pessoa>();
+        listaDeClientes = new ArrayList<>();
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
             ResultSet resultado = instrucao.executeQuery();
 
             while (resultado.next()) {
-
                 if (resultado.getInt("cliente.id_cliente") != 0) {
                     Cliente cliente = instanciarCliente(resultado);
-                    listaDePessoas.add(cliente);
+                    listaDeClientes.add(cliente);
                 }
 
                 if (resultado.getInt("funcionario.id_funcionario") != 0) {
@@ -173,8 +173,8 @@ public class PessoaDAO {
             resultado.close();
             instrucao.close();
             conexao.close();
-
-            return listaDePessoas;
+            
+            return listaDeClientes;
         } catch (SQLException e) {
             System.out.println("Erro na operação de Consulta de Pessoas!");
             throw new RuntimeException(e);
