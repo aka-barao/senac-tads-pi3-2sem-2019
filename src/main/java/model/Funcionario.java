@@ -13,17 +13,33 @@ import model.Cargo;
  * @author samue
  */
 public class Funcionario extends Pessoa{
+    
+    private Integer idFuncionario;
     private Cargo cargo;
     private UnidadeEmpresa unidadeEmpresa;
-    private int idFuncionario;
     private Departamento departamento;
     
     public Funcionario(){
     }
-            
+    
+    
+    
     public Funcionario(int idPessoa, String nome, Date dataNascimento, String cpf, Cargo Cargo){
         super(idPessoa, nome, dataNascimento, cpf);
         this.cargo = Cargo;
+    }
+
+    public Funcionario(Integer idFuncionario, String nome, Date dataNascimento, String cpf) {
+        super(nome, dataNascimento, cpf);
+        this.idFuncionario = idFuncionario;
+    }
+    
+    public Funcionario(Integer idFuncionario, String nome, Date dataNascimento, String cpf, Cargo Cargo, UnidadeEmpresa unidadeEmpresa, Departamento departamento) {
+        super(nome, dataNascimento, cpf);
+        this.idFuncionario = idFuncionario;
+        this.cargo = Cargo;
+        this.unidadeEmpresa = unidadeEmpresa;
+        this.departamento = departamento;
     }
 
     public Cargo getCargo() {
@@ -42,11 +58,11 @@ public class Funcionario extends Pessoa{
         this.unidadeEmpresa = unidadeEmpresa;
     }
 
-    public int getIdFuncionario() {
+    public Integer getIdFuncionario() {
         return idFuncionario;
     }
 
-    public void setIdFuncionario(int idFuncionario) {
+    public void setIdFuncionario(Integer idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 

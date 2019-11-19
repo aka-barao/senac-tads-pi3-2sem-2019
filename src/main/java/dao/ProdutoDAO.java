@@ -132,7 +132,7 @@ public class ProdutoDAO {
                 if (listaDeProdutos.contains(produto)) {
                     unidadeEmpresaDAO = new UnidadeEmpresaDAO();
 
-                    UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
+                    UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresaPorID(
                             resultado.getInt("quantidade_estoque.id_unidade_empresa"));
 
                     Produto produtoExistente = listaDeProdutos.get(listaDeProdutos.indexOf(produto));
@@ -149,7 +149,7 @@ public class ProdutoDAO {
                 );
 
                 unidadeEmpresaDAO = new UnidadeEmpresaDAO();
-                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
+                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresaPorID(
                         resultado.getInt("quantidade_estoque.id_unidade_empresa"));
 
                 produto.setCategoriaProduto(categoria);
@@ -313,7 +313,7 @@ public class ProdutoDAO {
 
             while (resultado.next()) {
                 unidadeEmpresaDAO = new UnidadeEmpresaDAO();
-                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresa(
+                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresaPorID(
                         resultado.getInt("quantidade_estoque.id_unidade_empresa"));
 
                 produto.setQuantidadeEstoque(unidadeEmpresa,

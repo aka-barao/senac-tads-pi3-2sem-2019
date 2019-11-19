@@ -16,7 +16,7 @@ import java.util.Map;
 public class Produto {
 
     protected Integer id;
-    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<UnidadeEmpresa, Integer>();
+    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<>();
     protected double valor;
     protected String nome;
     protected String descricao;

@@ -75,11 +75,11 @@ public class ClienteDAO {
     public ArrayList<Cliente> listarClientes() {
         String codigoSQL
                 = "SELECT "
-                + "cliente.id_cliente"
+                + "cliente.id_cliente,"
                 + "cliente.nome,"
                 + "cliente.data_nascimento,"
                 + "cliente.cpf,"
-                + "FROM cliente ";
+                + "FROM cliente";
 
         listaDeClientes = new ArrayList<>();
 
@@ -161,5 +161,48 @@ public class ClienteDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void excluir(Integer codCliente) throws SQLException,ClassNotFoundException {
+                String deletaProdutoSQL = "DELETE FROM produto WHERE id_produto = ?";
+		Connection conexao = new ConnectionFactory().getConnection();
+		instrucao = conexao.prepareStatement(deletaProdutoSQL);
+		instrucao.setInt(1,codCliente);
+		instrucao.execute();
+    }
+    
+    public boolean atualizarCliente(Cliente cliente) {
+
+        boolean retorno = false;
+
+        String atualizaProdutoSQL
+                = "UPDATE produto SET "
+                + "nome = ?, "
+                + "data_nascimento = ?, "
+                + "cpf = ?, "
+                + "WHERE id = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(atualizaProdutoSQL);
+
+            instrucao.setString(1, cliente.getNome());
+            instrucao.setDate(2, (Date) cliente.getDataNascimento());
+            instrucao.setString(3, cliente.getCpf());
+            instrucao.setInt(4, cliente.getIdCliente());
+
+            int linhasAfetadasProduto = instrucao.executeUpdate();
+            instrucao.close();
+
+            retorno = linhasAfetadasProduto > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Produto!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+    
     
 }

@@ -29,7 +29,7 @@ public class DepartamentoDAO {
 
     }
     
-    public Departamento buscaDepartamento(int id) {
+    public Departamento buscaDepartamentoPorID(int id) {
         String codigoSQL
                 = "SELECT "
                 + "descricao,"
@@ -55,5 +55,32 @@ public class DepartamentoDAO {
         }
     }
     
+    public Departamento buscaDepartamento(String descricao) {
+        String codigoSQL
+                = "SELECT "
+                + "id_departamento,"
+                + "descricao,"
+                + "FROM departamento "
+                + "WHERE descricao = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, descricao);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Departamento departamento = new Departamento(
+                    resultado.getInt("id_departamento"),
+                    resultado.getString("descricao"));
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return departamento;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca!");
+            throw new RuntimeException(e);
+        }
+    }
     
 }

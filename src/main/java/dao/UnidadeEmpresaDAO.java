@@ -34,7 +34,7 @@ public class UnidadeEmpresaDAO {
 
     }
 
-    public UnidadeEmpresa buscaUnidadeEmpresa(int id) {
+    public UnidadeEmpresa buscaUnidadeEmpresaPorID(int id) {
         String codigoSQL
                 = "SELECT "
                 + "descricao,"
@@ -53,6 +53,41 @@ public class UnidadeEmpresaDAO {
                 unidadeEmpresa.setTipo_unidade(resultado.getInt("tipo_unidade"));
 
             }
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return unidadeEmpresa;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca de Unidade Empresa!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public UnidadeEmpresa buscaUnidadeEmpresa(String descricao) {
+        String codigoSQL
+                = "SELECT "
+                + "id_unidade_empresa"
+                + "descricao,"
+                + "tipo_unidade "
+                + "FROM unidade_empresa "
+                + "WHERE descricao = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, descricao);
+            ResultSet resultado = instrucao.executeQuery();
+            UnidadeEmpresa unidadeEmpresa = new UnidadeEmpresa(resultado.getInt("id_unidade_empresa"),
+                                                               resultado.getString("descricao"),
+                                                               resultado.getInt("tipo_unidade"));
+            
+            
+            //while(resultado != null && resultado.next()) {
+            //    unidadeEmpresa.setIdUnidadeEmpresa(resultado.getInt("id_unidade_empresa"));
+            //    unidadeEmpresa.setDescricao(resultado.getString("descricao"));
+            //    unidadeEmpresa.setTipo_unidade(resultado.getInt("tipo_unidade"));
+            //}
 
             resultado.close();
             instrucao.close();
