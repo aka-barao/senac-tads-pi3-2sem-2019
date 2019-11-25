@@ -87,12 +87,12 @@ public class ClienteServlet extends HttpServlet {
 					request.setAttribute("mensagem", "Cliente excluido");
 				}
 			}
-			request.setAttribute("clientes", clienteDAO.listarClientes());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/clientes.jsp");
+			request.setAttribute("ListaClientes", clienteDAO.listarClientes());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/CadastroCliente.jsp");
 			dispatcher.forward(request, response);
 		} catch (SQLException | ClassNotFoundException | IllegalArgumentException e) {
 			request.setAttribute("mensagem", "Erro: " + e.getMessage());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/erros/erro.jsp");
 			dispatcher.forward(request, response);
 		}
         /*

@@ -134,8 +134,8 @@ public class ProdutoServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
 
-        int idCategoriaProduto = Integer.parseInt(request.getParameter("id_categoria_produto"));
-        CategoriaProduto categoriaProduto = categoriaProdutoDAO.buscaCategoriaProduto(idCategoriaProduto);
+        String CategoriaProduto = request.getParameter("categoria");
+        CategoriaProduto categoriaProduto = categoriaProdutoDAO.buscaCategoriaProduto(CategoriaProduto);
 
         Produto produto = new Produto(null, valor, nome, descricao, categoriaProduto);
         if (IdProduto != null && !IdProduto.equals("")) {

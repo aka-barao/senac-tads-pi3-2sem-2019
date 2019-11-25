@@ -9,6 +9,7 @@ import dao.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,25 +28,30 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        response.setContentType("text/html;charset=UTF-8");
+        String acao = request.getParameter("acao");
+        if (acao != null) {
+            if (acao.equals("LOGAR")) {
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                response.setContentType("text/html;charset=UTF-8");
 
-        String username = request.getParameter("username");
-        String senha = request.getParameter("senha");
-        
-        Usuario usuario = usuarioDAO.fazLogin(username, senha);
+                String username = request.getParameter("username");
+                String senha = request.getParameter("senha");
 
-        if (usuario != null) {
-            HttpSession sessao = request.getSession();
-            
-            sessao.setAttribute("id_usuario", usuario.getId_usuario());
-            sessao.setAttribute("id_funcionario", usuario.getId_funcionario());
+                Usuario usuario = usuarioDAO.fazLogin(username, senha);
 
+                if (usuario != null) {
+                    HttpSession sessao = request.getSession();
 
-        } else {
-            // Redirecionar para página de erro
-            System.out.println("Falha ao logar");
+                    sessao.setAttribute("id_usuario", usuario.getId_usuario());
+                    sessao.setAttribute("id_funcionario", usuario.getId_funcionario());
+                }
+            } else {
+                // Redirecionar para página de erro
+                System.out.println("Falha ao logar");
+            }
         }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/Login.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override

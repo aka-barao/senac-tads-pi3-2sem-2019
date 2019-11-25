@@ -106,11 +106,11 @@ public class FuncionarioServlet extends HttpServlet {
 				}
 			}
 			request.setAttribute("funcionarios", funcionarioDAO.listarClientes());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/funcionario.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionario/CadastroFuncionario.jsp");
 			dispatcher.forward(request, response);
 		} catch (IllegalArgumentException e) {
 			request.setAttribute("mensagem", "Erro: " + e.getMessage());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/erros/erro.jsp");
 			dispatcher.forward(request, response);
 		}
     }

@@ -33,7 +33,7 @@ public class CategoriaProdutoDAO {
 
     }
 
-    public CategoriaProduto buscaCategoriaProduto(int id) {
+    public CategoriaProduto buscaCategoriaProdutoPorID(int id) {
         String codigoSQL
                 = "SELECT "
                 + "descricao "
@@ -47,6 +47,35 @@ public class CategoriaProdutoDAO {
 
             CategoriaProduto categoriaProduto = new CategoriaProduto(
                     id,
+                    resultado.getString("descricao")
+            );
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return categoriaProduto;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public CategoriaProduto buscaCategoriaProduto(String categoria) {
+        String codigoSQL
+                = "SELECT "
+                + "id_categoria_produto,"
+                + "descricao "
+                + "FROM categoria_produto "
+                + "WHERE descricao = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, categoria);
+            ResultSet resultado = instrucao.executeQuery();
+
+            CategoriaProduto categoriaProduto = new CategoriaProduto(
+                    resultado.getInt("id_categoria_produto"),
                     resultado.getString("descricao")
             );
 
