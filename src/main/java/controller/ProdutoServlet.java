@@ -72,7 +72,7 @@ public class ProdutoServlet extends HttpServlet {
                 }
             }
             request.setAttribute("listaProdutos", produtoDAO.listarProdutos());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/CadastroProduto.jsp");
             dispatcher.forward(request, response);
         } catch (IllegalArgumentException e) {
             request.setAttribute("mensagem", "Erro: " + e.getMessage());

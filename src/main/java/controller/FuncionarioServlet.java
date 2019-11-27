@@ -95,7 +95,7 @@ public class FuncionarioServlet extends HttpServlet {
 				} else if (acao.equals("RETRIEVE")) {
 					String Id = request.getParameter("IdFuncionario");
 					Integer IdFuncionario = Integer.parseInt(Id);
-					Funcionario funcionario = funcionarioDAO.buscarClientePorID(IdFuncionario);
+					Funcionario funcionario = funcionarioDAO.buscarFuncionarioPorID(IdFuncionario);
 					request.setAttribute("funcionario", funcionario);
 	
 				} else if (acao.equals("DELETE")) {

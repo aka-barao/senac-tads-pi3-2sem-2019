@@ -11,26 +11,72 @@ package model;
  */
 public class Usuario {
     
-    private int id_usuario;
-    private int id_funcionario;
+    private Integer id_usuario;
+    private String nomeUsuario;
+    private String senhaUsuario;
+    private Integer id_funcionario;
     private Funcionario funcionario;
 
     public Usuario() {
     }
 
-    public int getId_usuario() {
+    public Usuario(Integer id_usuario, String nomeUsuario, String senhaUsuario, Integer id_funcionario) {
+        this.id_usuario = id_usuario;
+        this.nomeUsuario = nomeUsuario;
+        this.senhaUsuario = senhaUsuario;
+        this.id_funcionario = id_funcionario;
+    }
+    
+    public Usuario(String nomeUsuario, String senhaUsuario, Integer id_funcionario) {
+        this.nomeUsuario = nomeUsuario;
+        this.senhaUsuario = senhaUsuario;
+        this.id_funcionario = id_funcionario;
+    }
+
+    public Usuario(Integer id_usuario, String nomeUsuario, String senhaUsuario, Integer id_funcionario, Funcionario funcionario) {
+        this.id_usuario = id_usuario;
+        this.nomeUsuario = nomeUsuario;
+        this.senhaUsuario = senhaUsuario;
+        this.id_funcionario = id_funcionario;
+        this.funcionario = funcionario;
+    }
+
+    public Usuario(Integer id_usuario, String nomeUsuario, String senhaUsuario, Funcionario funcionario) {
+        this.id_usuario = id_usuario;
+        this.nomeUsuario = nomeUsuario;
+        this.senhaUsuario = senhaUsuario;
+        this.funcionario = funcionario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getSenhaUsuario() {
+        return senhaUsuario;
+    }
+
+    public void setSenhaUsuario(String senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
+    }
+    
+    public Integer getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
+    public void setId_usuario(Integer id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public int getId_funcionario() {
+    public Integer getId_funcionario() {
         return id_funcionario;
     }
 
-    public void setId_funcionario(int id_funcionario) {
+    public void setId_funcionario(Integer id_funcionario) {
         this.id_funcionario = id_funcionario;
     }
 

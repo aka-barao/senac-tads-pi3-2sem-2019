@@ -41,7 +41,7 @@
                 <h5>&nbspCliente</h5>
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action bg-light">Cadastrar Cliente</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Clientes Cadastrados</a>
+                    <a href="ProdutoServlet" class="list-group-item list-group-item-action bg-light">Clientes Cadastrados</a>
 
                 </div>
             </div>

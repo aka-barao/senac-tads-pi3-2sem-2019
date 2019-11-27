@@ -20,7 +20,7 @@ import model.Cliente;
 public class ClienteDAO {
     
     private PreparedStatement instrucao;
-    private ArrayList<Cliente> listaDeClientes;
+    
     
     public ClienteDAO() { // Avisa no console caso o programa consiga se conectar sem problemas ao BD;
         try {
@@ -78,10 +78,10 @@ public class ClienteDAO {
                 + "cliente.id_cliente,"
                 + "cliente.nome,"
                 + "cliente.data_nascimento,"
-                + "cliente.cpf,"
+                + "cliente.cpf"
                 + "FROM cliente";
 
-        listaDeClientes = new ArrayList<>();
+        ArrayList<Cliente> listaDeClientes = new ArrayList<>();
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);

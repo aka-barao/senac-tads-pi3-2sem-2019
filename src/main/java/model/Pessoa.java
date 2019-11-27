@@ -20,6 +20,12 @@ public abstract class Pessoa {
     
     public Pessoa(){}
     
+    
+    public Pessoa(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+    
     public Pessoa(String nome, Date dataNascimento, String cpf) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;

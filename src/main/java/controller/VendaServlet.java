@@ -5,6 +5,10 @@
  */
 package controller;
 
+import dao.CategoriaProdutoDAO;
+import dao.ClienteDAO;
+import dao.ProdutoDAO;
+import dao.VendaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +23,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "VendaServlet", urlPatterns = {"/VendaServlet"})
 public class VendaServlet extends HttpServlet {
+    
+    private VendaDAO vendaDAO;
+    private ClienteDAO clienteDAO;
+    private ProdutoDAO produtoDAO;
+    private CategoriaProdutoDAO categoriaProdutoDAO;
 
+    @Override
+    public void init() {
+        produtoDAO = new ProdutoDAO();
+        categoriaProdutoDAO = new CategoriaProdutoDAO();
+    }
+
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,14 +56,15 @@ public class VendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
     }
 
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

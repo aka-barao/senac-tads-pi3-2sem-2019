@@ -28,7 +28,12 @@ public class Funcionario extends Pessoa{
         super(idPessoa, nome, dataNascimento, cpf);
         this.cargo = Cargo;
     }
-
+    
+    public Funcionario(Integer idFuncionario, String nome, String cpf){
+        super(nome,  cpf);
+        this.idFuncionario = idFuncionario;
+    }
+    
     public Funcionario(Integer idFuncionario, String nome, Date dataNascimento, String cpf) {
         super(nome, dataNascimento, cpf);
         this.idFuncionario = idFuncionario;
