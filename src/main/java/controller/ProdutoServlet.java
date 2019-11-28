@@ -40,7 +40,7 @@ public class ProdutoServlet extends HttpServlet {
         try {
             String acao = request.getParameter("acao");
             if (acao != null) {
-                if (acao.equals("CREATE")) {
+                if (acao.equals("CRIAR")) {
                     Produto produto = CriaProduto(request);
                     /*
                                         try {
@@ -52,23 +52,23 @@ public class ProdutoServlet extends HttpServlet {
                      */
                     if (produto.getId() == null) {
                         produtoDAO.inserirNovoProduto(produto);
-                        request.setAttribute("mensagem", "Cliente salvo com sucesso");
+                        request.setAttribute("mensagem", "Produto salvo com sucesso");
                     } else {
                         produtoDAO.atualizarProduto(produto);
-                        request.setAttribute("mensagem", "Cliente atualizado com sucesso");
+                        request.setAttribute("mensagem", "Produto atualizado com sucesso");
                     }
 
-                } else if (acao.equals("RETRIEVE")) {
+                } else if (acao.equals("EDITAR")) {
                     String IdProduto = request.getParameter("idProduto");
                     int Id = Integer.parseInt(IdProduto);
-                    Produto produto = produtoDAO.buscarProdutoPorID(Id);
+                    Produto produto = produtoDAO.buscarProdutoPorID2(Id);
                     request.setAttribute("produto", produto);
 
-                } else if (acao.equals("DELETE")) {
+                } else if (acao.equals("DELETAR")) {
                     String IdProduto = request.getParameter("idProduto");
                     int Id = Integer.parseInt(IdProduto);
                     produtoDAO.excluirProduto(Id);
-                    request.setAttribute("mensagem", "Cliente excluido");
+                    request.setAttribute("mensagem", "Produto excluido");
                 }
             }
             request.setAttribute("listaProdutos", produtoDAO.listarProdutos());

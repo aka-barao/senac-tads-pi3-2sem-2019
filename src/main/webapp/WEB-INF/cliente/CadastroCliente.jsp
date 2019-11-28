@@ -30,19 +30,18 @@
             <div class="bg-light border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading">Scorpions </div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Home</a>
+                    <a href="index.html" class="list-group-item list-group-item-action bg-light">Home</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Venda</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Cliente</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Funcionário</a>
+                    <a href="FuncionarioServlet" class="list-group-item list-group-item-action bg-light">Funcionário</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Relatório</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Produto</a>
+                    <a href="ProdutoServlet" class="list-group-item list-group-item-action bg-light">Produto</a>
                 </div>
 
                 <br>
                 <h5>&nbspCliente</h5>
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action bg-light">Cadastrar Cliente</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Clientes Cadastrados</a>
+                    <a href="ClienteServlet" class="list-group-item list-group-item-action bg-light">Lista de Clientes </a>
 
                 </div>
             </div>
@@ -64,7 +63,7 @@
 
                     <!-- INICIO DO FORM-->        
                     <form method="POST" action="ClienteServlet">
-                        <input type="hidden" name="acao" value="CREATE"/>
+                        <input type="hidden" name="acao" value="CRIAR"/>
                         <input type="hidden" name="IdCliente" value="${cliente.IdCliente}"/>
 
 
@@ -186,8 +185,8 @@
                                 <td><c:out value="${cliente.nome}" /></td>	
                                 <td><c:out value="${cliente.cpf}" /></td>	
                                 <td><c:out value="${cliente.dataNascimento}" /></td>	
-                                <td><a href=clienteServlet?acao=RETRIEVE&IdCliente=${cliente.IdCliente}>Editar</a></td>
-                                <td><a href=clienteServlet?acao=DELETE&IdCliente=${cliente.IdCliente}>Excluir</a></td>
+                                <td><a href=clienteServlet?acao=EDITAR&IdCliente=${cliente.IdCliente}>Editar</a></td>
+                                <td><a href=clienteServlet?acao=DELETAR&IdCliente=${cliente.IdCliente}>Excluir</a></td>
                             </tr>
                             </c:forEach>	
                         </tbody>

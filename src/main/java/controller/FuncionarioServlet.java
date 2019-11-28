@@ -75,7 +75,7 @@ public class FuncionarioServlet extends HttpServlet {
         try {
 			String acao = request.getParameter("acao");
 			if (acao != null) {
-				if (acao.equals("CREATE")) {
+				if (acao.equals("CRIAR")) {
 					Funcionario funcionario = criaFuncionario(request);
 					/*
                                         try {
@@ -87,18 +87,18 @@ public class FuncionarioServlet extends HttpServlet {
                                         */
 					if (funcionario.getIdFuncionario() == null) {
 						funcionarioDAO.inserirFuncionario(funcionario);
-						request.setAttribute("mensagem", "Cliente salvo com sucesso");
+						request.setAttribute("mensagem", "Funcionario salvo com sucesso");
 					} else {
 						funcionarioDAO.atualizarCliente(funcionario);
-						request.setAttribute("mensagem", "Cliente atualizado com sucesso");
+						request.setAttribute("mensagem", "Funcionario atualizado com sucesso");
 					}
-				} else if (acao.equals("RETRIEVE")) {
+				} else if (acao.equals("EDITAR")) {
 					String Id = request.getParameter("IdFuncionario");
 					Integer IdFuncionario = Integer.parseInt(Id);
 					Funcionario funcionario = funcionarioDAO.buscarFuncionarioPorID(IdFuncionario);
 					request.setAttribute("funcionario", funcionario);
 	
-				} else if (acao.equals("DELETE")) {
+				} else if (acao.equals("DELETAR")) {
 					String Id = request.getParameter("IdFuncionario");
 					Integer IdFuncionario = Integer.parseInt(Id);
 					funcionarioDAO.excluir(IdFuncionario);

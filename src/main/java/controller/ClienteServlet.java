@@ -57,7 +57,7 @@ public class ClienteServlet extends HttpServlet {
             try {
 			String acao = request.getParameter("acao");
 			if (acao != null) {
-				if (acao.equals("CREATE")) {
+				if (acao.equals("CRIAR")) {
 					Cliente cliente = criaCliente(request);
 					/*
                                         try {
@@ -74,13 +74,13 @@ public class ClienteServlet extends HttpServlet {
 						clienteDAO.atualizarCliente(cliente);
 						request.setAttribute("mensagem", "Cliente atualizado com sucesso");
 					}
-				} else if (acao.equals("RETRIEVE")) {
+				} else if (acao.equals("EDITAR")) {
 					String Id = request.getParameter("IdCliente");
 					Integer IdCliente = Integer.parseInt(Id);
 					Cliente cliente = clienteDAO.buscarClientePorID(IdCliente);
 					request.setAttribute("cliente", cliente);
 	
-				} else if (acao.equals("DELETE")) {
+				} else if (acao.equals("DELETAR")) {
 					String Id = request.getParameter("IdCliente");
 					Integer IdCliente = Integer.parseInt(Id);
 					clienteDAO.excluir(IdCliente);
