@@ -30,7 +30,7 @@ public class CargoDAO {
 
     }
     
-    public Cargo buscaCargo(int id) {
+    public Cargo buscaCargoPorID(int id) {
         String codigoSQL
                 = "SELECT "
                 + "descricao,"
@@ -43,6 +43,34 @@ public class CargoDAO {
 
             Cargo cargo = new Cargo(
                     id,
+                    resultado.getString("descricao"));
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return cargo;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Cargo buscaCargo(String descricao) {
+        String codigoSQL
+                = "SELECT "
+                + "id_cargo,"
+                + "descricao,"
+                + "FROM cargo "
+                + "WHERE descricao = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setString(1, descricao);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Cargo cargo = new Cargo(
+                    resultado.getInt("id_cargo"),
                     resultado.getString("descricao"));
 
             resultado.close();

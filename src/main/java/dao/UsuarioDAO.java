@@ -31,7 +31,47 @@ public class UsuarioDAO {
         }
 
     }
+    
+    public boolean inserirNovoUsuario(Usuario usuario){
+        boolean retorno = false;
 
+        String cadastraClienteSQL = "INSERT INTO usuario(username, senha, id_funcionario)"
+                + " VALUES (?,?,?)";
+
+        // try-with-resources || Conexão será aberta novamente dentro do "try" e fechada automaticamente ao final dele.
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(cadastraClienteSQL);
+
+            instrucao.setString(1, usuario.getNomeUsuario());
+            instrucao.setString(2, usuario.getSenhaUsuario());
+            instrucao.setInt(3, usuario.getId_funcionario());
+            
+            instrucao.execute();
+            instrucao.close();
+
+            retorno = true;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Cadastro de Cliente!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+    }
+    
+    public boolean atualizarUsuario(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void excluirUsuario(int Id_Usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Usuario buscarUsuarioPorID(int Id_Usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public Usuario fazLogin(String username, String senha) {
         String codigoSQL
                 = "SELECT "
@@ -69,4 +109,48 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public ArrayList<Usuario> listarUsuarios() {
+        String codigoSQL
+                = "SELECT "
+                + "usuario.id_usuario,"
+                + "usuario.username,"
+                + "usuario.senha,"
+                + "funcionario.id_funcionario"
+                + "FROM usuario"
+                + "INNER JOIN funcionario ON "
+                + "funcionario.id_funcionario = usuario.id_funcionario";
+
+        ArrayList<Usuario> listaDeUsuarios = new ArrayList<>();
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            ResultSet resultado = instrucao.executeQuery();
+            
+            while (resultado.next()) {
+                if (resultado.getInt("usuario.id_usuario") != 0) {
+                    Usuario usuario = new Usuario(
+                        resultado.getInt("usuario.id_usuario"),
+                        resultado.getString("usuario.username"),
+                        resultado.getString("usuario.senha"),
+                        resultado.getInt("funcionario.id_funcionario")
+                );
+                        
+                    listaDeUsuarios.add(usuario);
+                }
+
+            }
+
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return listaDeUsuarios;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Consulta de Pessoas!");
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
 }

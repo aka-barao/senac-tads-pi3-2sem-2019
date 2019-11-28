@@ -14,16 +14,16 @@ import java.util.logging.Logger;
  */
 public class Cliente extends Pessoa{
     
-    private int idCliente;
+    private Integer idCliente;
 
     public Cliente(){
     }
     
-    public Cliente(int IdCliente){
+    public Cliente(Integer IdCliente){
         this.idCliente = IdCliente;
     }
     
-    public Cliente(int idCliente, int idPessoa, String nome, Date dataNascimento, String cpf) {
+    public Cliente(Integer idCliente, int idPessoa, String nome, Date dataNascimento, String cpf) {
         super(idPessoa, nome, dataNascimento, cpf);
         this.idCliente = idCliente;
     }
@@ -32,15 +32,15 @@ public class Cliente extends Pessoa{
         super(nome, dataNascimento, cpf);
     }
     
-    public Cliente(int id, String nome, Date dataNascimento, String cpf) {
+    public Cliente(Integer id, String nome, Date dataNascimento, String cpf) {
         super(id, nome, dataNascimento, cpf);
     }
 
-    public int getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

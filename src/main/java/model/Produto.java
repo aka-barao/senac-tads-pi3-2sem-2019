@@ -15,8 +15,8 @@ import java.util.Map;
  */
 public class Produto {
 
-    protected int id;
-    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<UnidadeEmpresa, Integer>();
+    protected Integer id;
+    protected Map<UnidadeEmpresa, Integer> quantidadeEstoque = new HashMap<>();
     protected double valor;
     protected String nome;
     protected String descricao;
@@ -28,11 +28,11 @@ public class Produto {
     }
 
     // Construtor utilizado no fluxo de exclusão
-    public Produto(int id) {
+    public Produto(Integer id) {
         this.id = id;
     }
 
-    public Produto(int id, UnidadeEmpresa unidadeEmpresa, Integer quantidadeEstoque, double valor, String nome, String descricao) {
+    public Produto(Integer id, UnidadeEmpresa unidadeEmpresa, Integer quantidadeEstoque, double valor, String nome, String descricao) {
         this.id = id;
         this.quantidadeEstoque.put(unidadeEmpresa, quantidadeEstoque);
         this.valor = valor;
@@ -40,14 +40,22 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Produto(int id, double valor, String nome, String descricao, Date dataCadastro) {
+    public Produto(Integer id, double valor, String nome, String descricao, Date dataCadastro) {
         this.id = id;
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
         this.dataCadastro = dataCadastro;
     }
-
+    
+    public Produto(Integer id, double valor, String nome, String descricao, CategoriaProduto categoriaProduto) {
+        this.id = id;
+        this.valor = valor;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.categoriaProduto = categoriaProduto;
+    }
+    
     public Produto(double valor, String nome, String descricao, CategoriaProduto categoriaProduto) {
         this.valor = valor;
         this.nome = nome;
@@ -55,11 +63,11 @@ public class Produto {
         this.categoriaProduto = categoriaProduto;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

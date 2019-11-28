@@ -6,6 +6,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import model.Cliente;
 public class ClienteDAO {
     
     private PreparedStatement instrucao;
-    private ArrayList<Cliente> listaDeClientes;
+    
     
     public ClienteDAO() { // Avisa no console caso o programa consiga se conectar sem problemas ao BD;
         try {
@@ -35,13 +36,17 @@ public class ClienteDAO {
     public boolean inserirNovoCliente(Cliente cliente){
         boolean retorno = false;
 
-        String cadastraClienteSQL = "INSERT INTO cliente(id_pessoa)"
-                + " VALUES (?)";
+        String cadastraClienteSQL = "INSERT INTO cliente(nome, datanasc, cpf)"
+                + " VALUES (?,?,?)";
 
         // try-with-resources || Conexão será aberta novamente dentro do "try" e fechada automaticamente ao final dele.
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(cadastraClienteSQL);
 
+            instrucao.setString(1, cliente.getNome());
+            instrucao.setDate(2, (Date) cliente.getDataNascimento());
+            instrucao.setString(3, cliente.getCpf());
+            
             instrucao.execute();
             instrucao.close();
 
@@ -59,10 +64,9 @@ public class ClienteDAO {
     private Cliente instanciarCliente(ResultSet resultadoConsulta) throws SQLException {
         Cliente cliente = new Cliente(
                 resultadoConsulta.getInt("cliente.id_cliente"),
-                resultadoConsulta.getInt("pessoa.id_pessoa"),
-                resultadoConsulta.getString("pessoa.nome"),
-                new java.util.Date(resultadoConsulta.getTimestamp("pessoa.data_nascimento").getTime()),
-                resultadoConsulta.getString("pessoa.cpf")
+                resultadoConsulta.getString("cliente.nome"),
+                new java.util.Date(resultadoConsulta.getTimestamp("cliente.data_nascimento").getTime()),
+                resultadoConsulta.getString("cliente.cpf")
         );
 
         return cliente;
@@ -71,26 +75,19 @@ public class ClienteDAO {
     public ArrayList<Cliente> listarClientes() {
         String codigoSQL
                 = "SELECT "
-                + "pessoa.id_pessoa,"
-                + "pessoa.nome,"
-                + "pessoa.data_nascimento,"
-                + "pessoa.cpf,"
                 + "cliente.id_cliente,"
-                + "funcionario.id_funcionario "
-                + "FROM pessoa "
-                + "LEFT JOIN cliente ON "
-                + "cliente.id_pessoa = pessoa.id_pessoa "
-                + "LEFT JOIN funcionario ON "
-                + "funcionario.id_pessoa = pessoa.id_pessoa";
+                + "cliente.nome,"
+                + "cliente.data_nascimento,"
+                + "cliente.cpf"
+                + "FROM cliente";
 
-        listaDeClientes = new ArrayList<Cliente>();
+        ArrayList<Cliente> listaDeClientes = new ArrayList<>();
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
             ResultSet resultado = instrucao.executeQuery();
-
+            
             while (resultado.next()) {
-
                 if (resultado.getInt("cliente.id_cliente") != 0) {
                     Cliente cliente = instanciarCliente(resultado);
                     listaDeClientes.add(cliente);
@@ -164,5 +161,48 @@ public class ClienteDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void excluir(Integer codCliente) throws SQLException,ClassNotFoundException {
+                String deletaProdutoSQL = "DELETE FROM produto WHERE id_produto = ?";
+		Connection conexao = new ConnectionFactory().getConnection();
+		instrucao = conexao.prepareStatement(deletaProdutoSQL);
+		instrucao.setInt(1,codCliente);
+		instrucao.execute();
+    }
+    
+    public boolean atualizarCliente(Cliente cliente) {
+
+        boolean retorno = false;
+
+        String atualizaProdutoSQL
+                = "UPDATE produto SET "
+                + "nome = ?, "
+                + "data_nascimento = ?, "
+                + "cpf = ?, "
+                + "WHERE id = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(atualizaProdutoSQL);
+
+            instrucao.setString(1, cliente.getNome());
+            instrucao.setDate(2, (Date) cliente.getDataNascimento());
+            instrucao.setString(3, cliente.getCpf());
+            instrucao.setInt(4, cliente.getIdCliente());
+
+            int linhasAfetadasProduto = instrucao.executeUpdate();
+            instrucao.close();
+
+            retorno = linhasAfetadasProduto > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Atualização de Produto!");
+            throw new RuntimeException(e);
+
+        } finally {
+            return retorno;
+        }
+
+    }
+    
     
 }

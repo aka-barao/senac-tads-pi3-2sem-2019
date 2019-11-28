@@ -25,7 +25,6 @@ import model.Produto;
  */
 public class ProdutoServlet extends HttpServlet {
 
-    
     private ProdutoDAO produtoDAO;
     private CategoriaProdutoDAO categoriaProdutoDAO;
 
@@ -34,57 +33,85 @@ public class ProdutoServlet extends HttpServlet {
         produtoDAO = new ProdutoDAO();
         categoriaProdutoDAO = new CategoriaProdutoDAO();
     }
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProdutoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProdutoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String action = request.getServletPath();
+            String acao = request.getParameter("acao");
+            if (acao != null) {
+                if (acao.equals("CREATE")) {
+                    Produto produto = CriaProduto(request);
+                    /*
+                                        try {
+						cliente.valida();
+					} catch (ValidacaoException e) {
+						request.setAttribute("mensagem", "Erro de Validacao dos Campos: " + e.getMessage());
+						request.setAttribute("cliente", cliente);
+					}
+                     */
+                    if (produto.getId() == null) {
+                        produtoDAO.inserirNovoProduto(produto);
+                        request.setAttribute("mensagem", "Cliente salvo com sucesso");
+                    } else {
+                        produtoDAO.atualizarProduto(produto);
+                        request.setAttribute("mensagem", "Cliente atualizado com sucesso");
+                    }
 
-            switch (action) {
-                case "/produtos/novo_produto":
-                    mostrarFormularioNovoProduto(request, response);
-                    break;
-                case "/produtos/inserir_produto":
-                    inserirProduto(request, response);
-                    break;
-                case "/produtos/deletar_produto":
-                    deletarProduto(request, response);
-                    break;
-                case "/produtos/editar_produto":
-                    mostrarFormularioEditarProduto(request, response);
-                    break;
-                case "/produtos/atualizar_produto":
-                    atualizarProduto(request, response);
-                    break;
-                default:
-                    listarProdutos(request, response);
-                    break;
-                    
-                    
+                } else if (acao.equals("RETRIEVE")) {
+                    String IdProduto = request.getParameter("idProduto");
+                    int Id = Integer.parseInt(IdProduto);
+                    Produto produto = produtoDAO.buscarProdutoPorID(Id);
+                    request.setAttribute("produto", produto);
+
+                } else if (acao.equals("DELETE")) {
+                    String IdProduto = request.getParameter("idProduto");
+                    int Id = Integer.parseInt(IdProduto);
+                    produtoDAO.excluirProduto(Id);
+                    request.setAttribute("mensagem", "Cliente excluido");
+                }
+            }
+            request.setAttribute("listaProdutos", produtoDAO.listarProdutos());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/CadastroProduto.jsp");
+            dispatcher.forward(request, response);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("mensagem", "Erro: " + e.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/erros/erro.jsp");
+            dispatcher.forward(request, response);
+        }
+        /*try {
+            String action = request.getParameter("action");
+            if (action == null) {
+                listarProdutos(request, response);
+            } else {
+                switch (action) {
+                    case "/produtos/novo_produto":
+                        mostrarFormularioNovoProduto(request, response);
+                        break;
+                    case "/produtos/inserir_produto":
+                        inserirProduto(request, response);
+                        break;
+                    case "/produtos/deletar_produto":
+                        deletarProduto(request, response);
+                        break;
+                    case "/produtos/editar_produto":
+                        mostrarFormularioEditarProduto(request, response);
+                        break;
+                    case "/produtos/atualizar_produto":
+                        atualizarProduto(request, response);
+                        break;
+                    default:
+                        listarProdutos(request, response);
+                        break;
+
+                }
             }
         } catch (SQLException ex) {
-            
+
         }
+         */
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -101,6 +128,23 @@ public class ProdutoServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Produto CriaProduto(HttpServletRequest request) {
+        String IdProduto = request.getParameter("IdProduto");
+        double valor = Double.parseDouble(request.getParameter("valor"));
+        String nome = request.getParameter("nome");
+        String descricao = request.getParameter("descricao");
+
+        String CategoriaProduto = request.getParameter("categoria");
+        CategoriaProduto categoriaProduto = categoriaProdutoDAO.buscaCategoriaProduto(CategoriaProduto);
+
+        Produto produto = new Produto(null, valor, nome, descricao, categoriaProduto);
+        if (IdProduto != null && !IdProduto.equals("")) {
+            produto.setId(Integer.parseInt(IdProduto));
+        }
+        return produto;
+    }
+    
+    /*
     private void listarProdutos(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Produto> listaProdutos = produtoDAO.listarProdutos();
@@ -120,7 +164,7 @@ public class ProdutoServlet extends HttpServlet {
         double valor = Double.parseDouble(request.getParameter("valor"));
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
-        
+
         int idCategoriaProduto = Integer.parseInt(request.getParameter("id_categoria_produto"));
         CategoriaProduto categoriaProduto = categoriaProdutoDAO.buscaCategoriaProduto(idCategoriaProduto);
 
@@ -133,7 +177,6 @@ public class ProdutoServlet extends HttpServlet {
     private void deletarProduto(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-
         produtoDAO.excluirProduto(id);
         response.sendRedirect("lista_produtos");
 
@@ -163,11 +206,11 @@ public class ProdutoServlet extends HttpServlet {
 
         int idCategoriaProduto = Integer.parseInt(request.getParameter("id_categoria_produto"));
         CategoriaProduto categoriaProduto = categoriaProdutoDAO.buscaCategoriaProduto(idCategoriaProduto);
-        
-        Produto produto = new Produto(valor, nome, descricao, categoriaProduto);
 
+        Produto produto = new Produto(valor, nome, descricao, categoriaProduto);
 
         produtoDAO.atualizarProduto(produto);
         response.sendRedirect("lista_produtos");
     }
+    */
 }

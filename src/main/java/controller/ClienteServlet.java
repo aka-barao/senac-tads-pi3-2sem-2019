@@ -27,7 +27,6 @@ import model.Pessoa;
  */
 public class ClienteServlet extends HttpServlet {
 
-    private PessoaDAO pessoaDAO;
     private ClienteDAO clienteDAO;
 
     @Override
@@ -55,7 +54,48 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            try {
+			String acao = request.getParameter("acao");
+			if (acao != null) {
+				if (acao.equals("CREATE")) {
+					Cliente cliente = criaCliente(request);
+					/*
+                                        try {
+						cliente.valida();
+					} catch (ValidacaoException e) {
+						request.setAttribute("mensagem", "Erro de Validacao dos Campos: " + e.getMessage());
+						request.setAttribute("cliente", cliente);
+					}
+                                        */
+					if (cliente.getIdCliente()== null) {
+						clienteDAO.inserirNovoCliente(cliente);
+						request.setAttribute("mensagem", "Cliente salvo com sucesso");
+					} else {
+						clienteDAO.atualizarCliente(cliente);
+						request.setAttribute("mensagem", "Cliente atualizado com sucesso");
+					}
+				} else if (acao.equals("RETRIEVE")) {
+					String Id = request.getParameter("IdCliente");
+					Integer IdCliente = Integer.parseInt(Id);
+					Cliente cliente = clienteDAO.buscarClientePorID(IdCliente);
+					request.setAttribute("cliente", cliente);
+	
+				} else if (acao.equals("DELETE")) {
+					String Id = request.getParameter("IdCliente");
+					Integer IdCliente = Integer.parseInt(Id);
+					clienteDAO.excluir(IdCliente);
+					request.setAttribute("mensagem", "Cliente excluido");
+				}
+			}
+			request.setAttribute("ListaClientes", clienteDAO.listarClientes());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/CadastroCliente.jsp");
+			dispatcher.forward(request, response);
+		} catch (SQLException | ClassNotFoundException | IllegalArgumentException e) {
+			request.setAttribute("mensagem", "Erro: " + e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/erros/erro.jsp");
+			dispatcher.forward(request, response);
+		}
+        /*
         try {
             String action = request.getParameter("action");
 
@@ -90,7 +130,7 @@ public class ClienteServlet extends HttpServlet {
             //Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("Mensagem", "Erro de Banco de Dados");
         }
-        /*
+        
         try {    
             listarClientes(request, response);
         } catch (SQLException ex) {
@@ -115,11 +155,24 @@ public class ClienteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Cliente criaCliente(HttpServletRequest request) {
+        String nome = request.getParameter("nome");
+        String CPF = request.getParameter("CPF");
+        Date DataNasc = Date.valueOf(request.getParameter("dtNascimento"));
+        String IdCliente = request.getParameter("IdCliente");
+        
+        Cliente cliente = new Cliente(null, nome, DataNasc, CPF);
+        if (IdCliente != null && !IdCliente.equals("")) {
+            cliente.setIdCliente(Integer.parseInt(IdCliente));
+        }
+        return cliente;
+    }
+
     private void listarClientes(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Cliente> listaClientes = clienteDAO.listarClientes();
         request.setAttribute("listaClientes", listaClientes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/lista_clientes.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/lista_cliente.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -149,16 +202,13 @@ public class ClienteServlet extends HttpServlet {
         // String nasc = String.valueOf(cliente.getDataNascimento());
         // response.getWriter().append(nasc).append(request.getContextPath());
         try {
-            if (pessoaDAO.cadastrarNovaPessoa(cliente) == false) {
+            if (clienteDAO.inserirNovoCliente(cliente) == false) {
                 response.getWriter().append("ERRO - Cadastro de Nova Pessoa");
             }
-            if (pessoaDAO.cadastrarNovoCliente(cliente) == false) {
-                response.getWriter().append("ERRO - Cadastro de Novo Cliente");
-            }
         } catch (java.lang.NullPointerException nullex) {
-            response.getWriter().append("Erro - Cadastro de Cliente");
+            response.getWriter().append("Erro - Cadastro de Cliente - Null");
         }
-        //response.sendRedirect("/WEB-INF/cliente/lista_clientes.jsp");
+        response.sendRedirect("/WEB-INF/cliente/cliente.jsp");
     }
 
     /*
@@ -171,7 +221,6 @@ public class ClienteServlet extends HttpServlet {
 
     }
      */
-
     private void mostrarFormularioEditarCliente(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));

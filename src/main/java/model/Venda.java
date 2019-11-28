@@ -5,8 +5,8 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -15,12 +15,12 @@ import java.util.Date;
 public class Venda {
     
     private int IdVenda;
-    private Date HoraVenda;
-    private ListaVenda listaVenda;
+    private Date DataVenda;
+    private List<ItemVenda> itemVenda;
     private Cliente Cliente;
     
     public Venda(Date HoraVenda, Cliente Cliente) {
-        this.HoraVenda = HoraVenda;
+        this.DataVenda = HoraVenda;
         this.Cliente = Cliente;
     }
     
@@ -28,12 +28,16 @@ public class Venda {
         return IdVenda;
     }
 
-    public ListaVenda getListaVenda() {
-        return listaVenda;
+    public List<ItemVenda> getItens() {
+        return itemVenda;
     }
 
-    public void setListaVenda(ListaVenda listaVenda) {
-        this.listaVenda = listaVenda;
+    public void addItem(ItemVenda itemVenda) {
+        this.itemVenda.add(itemVenda);
+    }
+
+    public void removeItem(ItemVenda itemVenda) {
+        this.itemVenda.remove(itemVenda);
     }
     
     public Cliente getCliente() {
@@ -44,12 +48,12 @@ public class Venda {
         this.Cliente = Cliente;
     }
     
-    public Date getHoraVenda() {
-        return HoraVenda;
+    public Date getDataVenda() {
+        return DataVenda;
     }
 
-    public void setHoraVenda(Date HoraVenda) {
-        this.HoraVenda = HoraVenda;
+    public void setDataVenda(Date DataVenda) {
+        this.DataVenda = DataVenda;
     }
     
     

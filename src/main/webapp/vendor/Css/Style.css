@@ -46,3 +46,20 @@ body{
     float: right;
 }
 
+header{
+    margin: 0;
+    background-color: black;
+}
+.Container_Form{
+    position: absolute;
+    margin-left: 40%;
+    margin-right: 50%;
+    margin-top: 10%;
+}
+.campo{
+    width: 350px;
+    padding: 5px;
+    margin-bottom: 3px;
+    border-color: red;
+    border-radius: 5px;
+}

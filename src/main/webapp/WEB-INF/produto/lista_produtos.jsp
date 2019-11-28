@@ -47,7 +47,7 @@
                                 <td><c:out value="${produto.dataCadastro}" /></td>
                                 <td><c:out value="${produto.categoriaProduto.descricao}" /></td>
                                 <td>
-                                    <a href="/editar_produto?id=<c:out value='${produto.id}' />">Editar</a>
+                                    <a href="ProdutoServlet?action=/produtos/editar_produto&id=${produto.id}">Editar</a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="/deletar_produto?id=<c:out value='${produto.id}' />">Deletar</a>                     
                                 </td>
