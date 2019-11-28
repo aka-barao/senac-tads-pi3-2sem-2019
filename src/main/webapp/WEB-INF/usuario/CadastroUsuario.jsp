@@ -65,11 +65,11 @@
 
                     <!-- INICIO DO FORM-->        
                     <form method="POST" action="UsuarioServlet">
-                        <input type="hidden" name="acao" value="CREATE"/>
+                        <input type="hidden" name="acao" value="CRIAR"/>
                         <input type="hidden" name="IdUsuario" value="${usuario.Id_usuario}"/>
 
 
-                        <!-- COMEÇO / NOME E SOBRENOME -->       
+                        <!-- COMEÇO / NOME E CPF de Funcionario -->       
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Codigo</label>
@@ -100,7 +100,7 @@
 
                            
                         </div>
-                        <!-- FIM / CPF E RG -->
+                        <!-- FIM / Nome de Usuario E Senha -->
 
                           
 
@@ -116,22 +116,20 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Codigo</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">CPF</th>
-                                <th scope="col">Data de Nascimento</th>
+                                <th scope="col">Nome de Usuario</th>
+                                <th scope="col">Senha</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Deletar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="cliente" items="${listaClientes}">
+                            <c:forEach var="usuario" items="${listaUsuarios}">
                             <tr>
-                                <td><c:out value="${cliente.IdCliente}" /></td>	
-                                <td><c:out value="${cliente.nome}" /></td>	
-                                <td><c:out value="${cliente.cpf}" /></td>	
-                                <td><c:out value="${cliente.dataNascimento}" /></td>	
-                                <td><a href=clienteServlet?acao=RETRIEVE&IdCliente=${cliente.IdCliente}>Editar</a></td>
-                                <td><a href=clienteServlet?acao=DELETE&IdCliente=${cliente.IdCliente}>Excluir</a></td>
+                                <td><c:out value="${usuario.Id_usuario}" /></td>	
+                                <td><c:out value="${usuario.nomeUsuario}" /></td>	
+                                <td><c:out value="${usuario.senhaUsuario}" /></td>		
+                                <td><a href=UsuarioServlet?acao=EDITAR&IdUsuario=${usuario.Id_usuario}>Editar</a></td>
+                                <td><a href=UsuarioServlet?acao=DELETAR&IdUsuario=${usuario.Id_usuario}>Excluir</a></td>
                             </tr>
                             </c:forEach>	
                         </tbody>

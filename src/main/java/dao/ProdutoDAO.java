@@ -288,7 +288,7 @@ public class ProdutoDAO {
                 + "INNER JOIN quantidade_estoque ON "
                 + "quantidade_estoque.id_produto = produto.id_produto "
                 + "INNER JOIN unidade_empresa ON "
-                + "unidade_empresa.id_unidade_empresa = quantidade_estoque.id_unidade_empresa"
+                + "unidade_empresa.id_unidade_empresa = quantidade_estoque.id_unidade_empresa "
                 + "WHERE produto.id_produto = ?";
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
@@ -330,4 +330,56 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public Produto buscarProdutoPorID2(int id) {
+        String codigoSQL
+                = "SELECT "
+                + "produto.id_produto,"
+                + "produto.nome,"
+                + "produto.descricao,"
+                + "produto.valor,"
+                + "produto.data_cadastro "
+                + "FROM produto "
+                + "WHERE produto.id_produto = ?";
+
+        try ( Connection conexao = new ConnectionFactory().getConnection()) {
+            instrucao = conexao.prepareStatement(codigoSQL);
+            instrucao.setInt(1, id);
+            ResultSet resultado = instrucao.executeQuery();
+
+            Produto produto = new Produto(
+                    resultado.getInt("produto.id_produto"),
+                    resultado.getDouble("produto.valor"),
+                    resultado.getString("produto.nome"),
+                    resultado.getString("produto.descricao"),
+                    resultado.getDate("produto.data_cadastro")
+            );
+            /*
+            CategoriaProduto categoria = new CategoriaProduto(
+                    resultado.getInt("categoria_produto.id_categoria_produto"),
+                    resultado.getString("categoria_produto.descricao")
+            );
+
+            produto.setCategoriaProduto(categoria);
+
+            while (resultado.next()) {
+                unidadeEmpresaDAO = new UnidadeEmpresaDAO();
+                UnidadeEmpresa unidadeEmpresa = unidadeEmpresaDAO.buscaUnidadeEmpresaPorID(
+                        resultado.getInt("quantidade_estoque.id_unidade_empresa"));
+
+                produto.setQuantidadeEstoque(unidadeEmpresa,
+                        resultado.getInt("quantidade_estoque.quantidade_estoque"));
+            }
+            */
+            resultado.close();
+            instrucao.close();
+            conexao.close();
+
+            return produto;
+        } catch (SQLException e) {
+            System.out.println("Erro na operação de Busca!");
+            throw new RuntimeException(e);
+        }
+    }
+    
 }

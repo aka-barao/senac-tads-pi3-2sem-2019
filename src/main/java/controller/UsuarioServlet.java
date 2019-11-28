@@ -68,35 +68,35 @@ public class UsuarioServlet extends HttpServlet {
         try {
             String acao = request.getParameter("acao");
             if (acao != null) {
-                if (acao.equals("CREATE")) {
+                if (acao.equals("CRIAR")) {
                     Usuario usuario = CriaUsuario(request);
                     /*
                                         try {
-						cliente.valida();
+						usuario.valida();
 					} catch (ValidacaoException e) {
 						request.setAttribute("mensagem", "Erro de Validacao dos Campos: " + e.getMessage());
-						request.setAttribute("cliente", cliente);
+						request.setAttribute("usuario", usuario);
 					}
                      */
                     if (usuario.getId_usuario() == null) {
                         usuarioDAO.inserirNovoUsuario(usuario);
-                        request.setAttribute("mensagem", "Cliente salvo com sucesso");
+                        request.setAttribute("mensagem", "Usuario salvo com sucesso");
                     } else {
                         usuarioDAO.atualizarUsuario(usuario);
-                        request.setAttribute("mensagem", "Cliente atualizado com sucesso");
+                        request.setAttribute("mensagem", "Usuario atualizado com sucesso");
                     }
 
-                } else if (acao.equals("RETRIEVE")) {
+                } else if (acao.equals("EDITAR")) {
                     String IdUsuario = request.getParameter("IdUsuario");
                     int Id = Integer.parseInt(IdUsuario);
                     Usuario usuario = usuarioDAO.buscarUsuarioPorID(Id);
-                    request.setAttribute("produto", usuario);
+                    request.setAttribute("usuario", usuario);
 
-                } else if (acao.equals("DELETE")) {
+                } else if (acao.equals("DELETAR")) {
                     String IdUsuario = request.getParameter("IdUsuario");
                     int Id = Integer.parseInt(IdUsuario);
                     usuarioDAO.excluirUsuario(Id);
-                    request.setAttribute("mensagem", "Cliente excluido");
+                    request.setAttribute("mensagem", "Usuario excluido");
                 }
             }
             request.setAttribute("listaUsuarios", usuarioDAO.listarUsuarios());
