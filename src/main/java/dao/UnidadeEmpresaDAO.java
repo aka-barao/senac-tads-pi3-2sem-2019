@@ -68,7 +68,7 @@ public class UnidadeEmpresaDAO {
     public UnidadeEmpresa buscaUnidadeEmpresa(String descricao) {
         String codigoSQL
                 = "SELECT "
-                + "id_unidade_empresa"
+                + "id_unidade_empresa,"
                 + "descricao,"
                 + "tipo_unidade "
                 + "FROM unidade_empresa "

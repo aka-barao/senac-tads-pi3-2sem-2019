@@ -116,8 +116,8 @@ public class UsuarioDAO {
                 + "usuario.id_usuario,"
                 + "usuario.username,"
                 + "usuario.senha,"
-                + "funcionario.id_funcionario"
-                + "FROM usuario"
+                + "funcionario.id_funcionario "
+                + "FROM usuario "
                 + "INNER JOIN funcionario ON "
                 + "funcionario.id_funcionario = usuario.id_funcionario";
 
@@ -147,7 +147,7 @@ public class UsuarioDAO {
 
             return listaDeUsuarios;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Consulta de Pessoas!");
+            System.out.println("Erro na operação de Consulta de Usuarios!");
             throw new RuntimeException(e);
         }
     }

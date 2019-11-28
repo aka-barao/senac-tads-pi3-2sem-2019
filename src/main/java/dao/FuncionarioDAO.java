@@ -60,7 +60,7 @@ public class FuncionarioDAO {
 
             return funcionario;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca de Pessoa!");
+            System.out.println("Erro na operação de Busca de Funcionario!");
             throw new RuntimeException(e);
         }
     }

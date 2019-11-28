@@ -180,7 +180,7 @@ public class ProdutoDAO {
                 + "descricao = ?, "
                 + "valor = ?, "
                 + "id_categoria_produto = ? "
-                + "WHERE id = ?";
+                + "WHERE id_produto = ?";
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(atualizaProdutoSQL);
@@ -288,7 +288,7 @@ public class ProdutoDAO {
                 + "INNER JOIN quantidade_estoque ON "
                 + "quantidade_estoque.id_produto = produto.id_produto "
                 + "INNER JOIN unidade_empresa ON "
-                + "unidade_empresa.id_unidade_empresa = quantidade_estoque.id_unidade_empresa"
+                + "unidade_empresa.id_unidade_empresa = quantidade_estoque.id_unidade_empresa "
                 + "WHERE produto.id_produto = ?";
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {

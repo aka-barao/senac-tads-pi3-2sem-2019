@@ -36,7 +36,7 @@ public class ClienteDAO {
     public boolean inserirNovoCliente(Cliente cliente){
         boolean retorno = false;
 
-        String cadastraClienteSQL = "INSERT INTO cliente(nome, datanasc, cpf)"
+        String cadastraClienteSQL = "INSERT INTO cliente(nome, data_nascimento, cpf)"
                 + " VALUES (?,?,?)";
 
         // try-with-resources || Conexão será aberta novamente dentro do "try" e fechada automaticamente ao final dele.
@@ -78,7 +78,7 @@ public class ClienteDAO {
                 + "cliente.id_cliente,"
                 + "cliente.nome,"
                 + "cliente.data_nascimento,"
-                + "cliente.cpf"
+                + "cliente.cpf "
                 + "FROM cliente";
 
         ArrayList<Cliente> listaDeClientes = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ClienteDAO {
 
             return listaDeClientes;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Consulta de Pessoas!");
+            System.out.println("Erro na operação de Consulta de Clientes!");
             throw new RuntimeException(e);
         }
     }
@@ -113,7 +113,7 @@ public class ClienteDAO {
                 + "nome,"
                 + "data_nascimento,"
                 + "cpf "
-                + "FROM Cliente "
+                + "FROM cliente "
                 + "WHERE cpf = ?";
         
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
@@ -129,7 +129,7 @@ public class ClienteDAO {
 
             return cliente;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca de Pessoa!");
+            System.out.println("Erro na operação de Busca de Cliente!");
             throw new RuntimeException(e);
         }
     }
@@ -141,8 +141,8 @@ public class ClienteDAO {
                 + "nome,"
                 + "data_nascimento,"
                 + "cpf "
-                + "FROM Cliente "
-                + "WHERE id = ?";
+                + "FROM cliente "
+                + "WHERE id_cliente = ?";
         
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(codigoSQL);
@@ -157,15 +157,15 @@ public class ClienteDAO {
 
             return cliente;
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Busca de Pessoa!");
+            System.out.println("Erro na operação de Busca de Cliente!");
             throw new RuntimeException(e);
         }
     }
     
     public void excluir(Integer codCliente) throws SQLException,ClassNotFoundException {
-                String deletaProdutoSQL = "DELETE FROM produto WHERE id_produto = ?";
+                String deletaClienteSQL = "DELETE FROM cliente WHERE id_cliente = ?";
 		Connection conexao = new ConnectionFactory().getConnection();
-		instrucao = conexao.prepareStatement(deletaProdutoSQL);
+		instrucao = conexao.prepareStatement(deletaClienteSQL);
 		instrucao.setInt(1,codCliente);
 		instrucao.execute();
     }
@@ -175,11 +175,11 @@ public class ClienteDAO {
         boolean retorno = false;
 
         String atualizaProdutoSQL
-                = "UPDATE produto SET "
-                + "nome = ?, "
-                + "data_nascimento = ?, "
-                + "cpf = ?, "
-                + "WHERE id = ?";
+                = "UPDATE cliente SET "
+                + "nome = ?,"
+                + "data_nascimento = ?,"
+                + "cpf = ? "
+                + "WHERE id_cliente = ?";
 
         try ( Connection conexao = new ConnectionFactory().getConnection()) {
             instrucao = conexao.prepareStatement(atualizaProdutoSQL);
@@ -195,7 +195,7 @@ public class ClienteDAO {
             retorno = linhasAfetadasProduto > 0;
 
         } catch (SQLException e) {
-            System.out.println("Erro na operação de Atualização de Produto!");
+            System.out.println("Erro na operação de Atualização de Cliente!");
             throw new RuntimeException(e);
 
         } finally {

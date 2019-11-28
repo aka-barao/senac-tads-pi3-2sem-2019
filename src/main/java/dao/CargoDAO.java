@@ -33,7 +33,7 @@ public class CargoDAO {
     public Cargo buscaCargoPorID(int id) {
         String codigoSQL
                 = "SELECT "
-                + "descricao,"
+                + "descricao "
                 + "FROM cargo "
                 + "WHERE id_cargo = ?";
 
@@ -60,7 +60,7 @@ public class CargoDAO {
         String codigoSQL
                 = "SELECT "
                 + "id_cargo,"
-                + "descricao,"
+                + "descricao "
                 + "FROM cargo "
                 + "WHERE descricao = ?";
 

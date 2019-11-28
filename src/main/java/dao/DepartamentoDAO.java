@@ -32,7 +32,7 @@ public class DepartamentoDAO {
     public Departamento buscaDepartamentoPorID(int id) {
         String codigoSQL
                 = "SELECT "
-                + "descricao,"
+                + "descricao "
                 + "FROM departamento "
                 + "WHERE id_departamento = ?";
 
@@ -59,7 +59,7 @@ public class DepartamentoDAO {
         String codigoSQL
                 = "SELECT "
                 + "id_departamento,"
-                + "descricao,"
+                + "descricao "
                 + "FROM departamento "
                 + "WHERE descricao = ?";
 
